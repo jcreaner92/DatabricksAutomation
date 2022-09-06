@@ -140,7 +140,10 @@ The Branching Strategy will be built out of the box when we deploy our resources
 ---
 
 # Create Databricks Custom Role (assigned to Databricks Service Principal Later)
-
+- Login to Azure 
+```powershell
+az login
+```
 - Copy and paste into VS Code Terminal (Powershell)
 ```powershell
 # Update This To Your SubscriptionID
