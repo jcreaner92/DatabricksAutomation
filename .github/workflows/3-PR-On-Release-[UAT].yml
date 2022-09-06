@@ -115,7 +115,7 @@ jobs:
         
 
         - name:                 Create DBX Clusters
-          if:                     steps.filter.outputs.workflows != 'true'
+          if:                   steps.filter.outputs.workflows != 'true'
           run:                  bash ./.github/workflows/Utilities/Utils-Create-Cluster.sh
           env:
             environment:        ${{ matrix.environments }}

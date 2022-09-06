@@ -33,6 +33,15 @@ jobs:
           with:
             ref:                   ${{ github.base_ref }} ## THIS MUST BE Release Branch
 
+# Testing this. I want to create a boolean, which is later used in an If condition
+# If there is a change to Infra (True), then run az resource deploy bash script. (run everything)
+        - uses: dorny/paths-filter@v2
+          id: filter
+          with:
+            filters: |
+              workflows:
+                - 'src/**'    
+
         - name:                 Azure Login - ${{ matrix.environments }}
           uses:                 azure/login@v1
           with:
@@ -45,14 +54,22 @@ jobs:
             filename:           '.github/workflows/Pipeline_Param/${{ matrix.environments }}.json'
             prefix:             param
 
+        - name:                 Store BICEP Param JSON File Variables As Environ VariablesStore JSON Param File Variables As Environ Variables
+          uses:                 antifree/json-to-variables@v1.0.1
+          with:
+            filename:           'Infrastructure/DBX_CICD_Deployment/Bicep_Params/${{ matrix.environments }}/Bicep.parameters.json'
+            prefix:             param
+
         # Only run if file path !infra AND merging into main, then don't run this!
-        #- name:                 Deploy DBX CICD Azure Resources
-        #  run:                  bash ./.github/workflows/Utilities/Utils-Azure-Resources.sh
-        #  env:
-        #    environment:        ${{ matrix.environments }}
+        - name:                 Deploy DBX CICD Azure Resources
+          if:                   steps.filter.outputs.workflows != 'true'
+          run:                  bash ./.github/workflows/Utilities/Utils-Azure-Resources.sh
+          env:
+            environment:        ${{ matrix.environments }}
 
 
-        - name:                 Assign RBAC Permissions 
+        - name:                 Assign RBAC Permissions
+          if:                   steps.filter.outputs.workflows != 'true'
           run:                  sh ./.github/workflows/Utilities/Utils-Assign-RBAC.sh
           env:
             environment:        ${{ matrix.environments }}
@@ -81,6 +98,7 @@ jobs:
         
 
         - name:                 Create DBX Clusters
+          if:                   steps.filter.outputs.workflows != 'true'
           run:                  bash ./.github/workflows/Utilities/Utils-Create-Cluster.sh
           env:
             environment:        ${{ matrix.environments }}
@@ -97,8 +115,12 @@ jobs:
         - name:                   Install + Configure Databricks CLI
           run:                    bash ./.github/workflows/Utilities/Utils-DBX-CLI-Configure.sh
 
+        - run: |
+            echo "${{ github.head_ref }}"
+            echo "${{ github.base_ref }}"
 
         - name:                   Create Wheel Files & Upload To DBFS
+          if:                     steps.filter.outputs.workflows != 'true'
           run:                    bash ./.github/workflows/Utilities/Utils-Create-Wheels-DBFS-Cluster-Upload.sh
           env:
             environment:          ${{ matrix.environments }}
