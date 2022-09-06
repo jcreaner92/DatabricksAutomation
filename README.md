@@ -188,11 +188,13 @@ az role definition create --role-definition ".github\workflows\RBAC_Role_Definit
 Steps:
   1. Open the Terminal Window in VSCode. Enter:
 ```bash
-az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Owner --scopes /subscriptions/<InsertYouSubsriptionID> --sdk-auth
+# Check To See subid variable still stored. If not use $subid = "<>"  
+echo $subid
+az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Owner --scopes /subscriptions/$subid --sdk-auth
 ```
   2. Ensure that the Service Principal names are unique within your Tenant. If not unique, you may see the error "Insufficient privileges to complete the operation"
   3. Do Not Delete Output (required in Next Step) [^4]
-  4. Create Github Secret titled "AZURE_CREDENTIALS" and paste output from step 2 [^5] <br>
+  4. Create Github Secret titled "AZURE_CREDENTIALS" and paste output from step 2. (Include curly brackets {}) [^5] <br>
   5. For more information on '--sdk-auth' has been deprecated flag [^7] 
 
 ---
@@ -203,9 +205,9 @@ az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Owner --scope
 Steps:
 1. Open the Terminal Window in VSCode. Enter (copy output to a text file): [^2]
 ```bash 
-az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Contributor --scopes /subscriptions/<InsertYouSubsriptionID> --query "{ARM_TENANT_ID:tenant, ARM_CLIENT_ID:appId, ARM_CLIENT_SECRET:password}"
+az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Contributor --scopes /subscriptions/$subid --query "{ARM_TENANT_ID:tenant, ARM_CLIENT_ID:appId, ARM_CLIENT_SECRET:password}"
 ```
-2. Create Github Secrets entitled "ARM_CLIENT_ID", "ARM_CLIENT_SECRET" and "ARM_TENANT_ID". Values are contained within output from step 1. [^3] 
+2. Create Github Secrets entitled "ARM_CLIENT_ID", "ARM_CLIENT_SECRET" and "ARM_TENANT_ID". Values are contained within output from step 1. Do not include double quotes for Secret Names and Values. [^3] 
 3. In VS Code Terminal retrieve ObjectID of Databricks Service Principal by using the ARM_CLIENT_ID from the previous step:  
 ```bash 
 az ad sp show --id <ARM_CLIENT_ID> --query "{roleBeneficiaryObjID:id}"
