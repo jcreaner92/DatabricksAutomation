@@ -46,7 +46,7 @@ The net effect is a disproportionate amount of the Data Scientist/Engineers time
 - Logging Framework using the [Opensensus Azure Monitor Exporters](https://github.com/census-instrumentation/opencensus-python/tree/master/contrib/opencensus-ext-azure)
 - Support for Databricks Development from VS Code IDE using the [Databricks Connect](https://docs.microsoft.com/en-us/azure/databricks/dev-tools/databricks-connect#visual-studio-code) feature.
 - Continuous Development with [Python Local Packaging](https://packaging.python.org/tutorials/packaging-projects/)
-- Example model file which uses the Development Framework from end to end.
+- Example machine learning model which uses the Development Framework from end to end.
 
 ---
 
