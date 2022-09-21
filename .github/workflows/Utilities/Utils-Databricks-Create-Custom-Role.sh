@@ -9,7 +9,7 @@ if [ $Bool_Contains_DBX_Custom_Role_Exists == false ]; then
     ls
 
     echo $param_SubscriptionId
-    updateJson="$(jq --arg param_SubscriptionId "$param_SubscriptionId" ' .assignableScopes[0] = "/subscriptions/$param_SubscriptionId" ' DBX_Custom_Role.json)" && echo -E "${contents}" > DBX_Custom_Role.json
+    updateJson="$(jq --arg param_SubscriptionId "$param_SubscriptionId" ' .assignableScopes[0] = /subscriptions/$param_SubscriptionId ' DBX_Custom_Role.json)" && echo -E "${contents}" > DBX_Custom_Role.json
     updateJson=$(echo $updateJson | jq -r )
     echo $updateJson
     az role definition create \
