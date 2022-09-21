@@ -1,9 +1,9 @@
 roleNames=$( az role definition list )
 Bool_Contains_DBX_Custom_Role_Exists=$( jq -r  ' [ .[].roleName | contains("DBX_Custom_Role_DSToolkit") ] | any ' <<< "$roleNames" )
 
-echo "Does Custome Role Exist: $Bool_Contains_DBX_Custom_Role_Exists "
+echo "Does Custom Role Exist: $Bool_Contains_DBX_Custom_Role_Exists "
 
-if [[ ! $Bool_Contains_DBX_Custom_Role_Exists ]]; then
+if [ $Bool_Contains_DBX_Custom_Role_Exists == false ]; then
     echo "Is it..."
     cd .github/workflows/RBAC_Role_Definition
     ls
