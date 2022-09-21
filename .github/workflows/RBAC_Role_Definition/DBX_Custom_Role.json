@@ -2,6 +2,7 @@
   "Name": "DBX_Custom_Role_DSToolkit",
   "IsCustom": true,
   "assignableScopes": [
+    "/subscriptions/4f1bc772-7792-4285-99d9-3463b8d7f994"
   ],
   "Description": "Create New Custom Role For Using Databricks API",
   "actions": [
