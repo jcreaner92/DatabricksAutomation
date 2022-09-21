@@ -10,7 +10,6 @@ permissions:
       id-token:               write
       contents:               read
 
-jobs:
   DBX_CICD_Deployment:
       name:                     DBX_CICD_Deployment
       runs-on:                  ubuntu-latest
@@ -50,6 +49,7 @@ jobs:
 # 5.  Create Custom Role 
         - name:                 Create Databricks Custom Role
           run:                  bash ./.github/workflows/Utilities/Utils-Databricks-Create-Custom-Role.sh
+          condition:            succeededOrFailed()
           env:
             environment:        ${{ matrix.environments }}
 
