@@ -9,6 +9,7 @@ if [ $Bool_Contains_DBX_Custom_Role_Exists == false ]; then
     ls
 
     echo $param_SubscriptionId
+    # Note the use of the single quotes around param_SubscriptionId below. This is necessary to esacape the initial single quote, thereby recognising param_SubscriptionID as a variable and not string literal
     updateJson=$(jq -r --arg param_SubscriptionId "$param_SubscriptionId" ' .assignableScopes[0] = "/subscriptions/'$param_SubscriptionId'" ' DBX_Custom_Role.json) && echo -E "${updateJson}" > DBX_Custom_Role.json
     updateJson=$(echo $updateJson | jq -r )
     echo $updateJson

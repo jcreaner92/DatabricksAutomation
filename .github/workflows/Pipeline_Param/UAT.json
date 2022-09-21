@@ -18,7 +18,7 @@
         {
             "roles": [
                 "Contributor", 
-                "DBX_Custom_Role2",
+                "DBX_Custom_Role_DSToolkit",
                 "Key Vault Administrator"
             ],
             "roleBeneficiaryObjID":"02a3f916-b4ea-4207-be62-d6f5d35890e5",
