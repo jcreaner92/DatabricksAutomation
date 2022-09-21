@@ -41,12 +41,15 @@ The net effect is a disproportionate amount of the Data Scientist/Engineers time
   - UAT
   - PreProduction
   - Production
-- Infrastrusture as Code for interacting with Databricks API
-- Automated Continuous Deployment 
+- Full CICD
+- Infrastrusture as Code for interacting with Databricks API and CLI
 - Logging Framework using the [Opensensus Azure Monitor Exporters](https://github.com/census-instrumentation/opencensus-python/tree/master/contrib/opencensus-ext-azure)
 - Support for Databricks Development from VS Code IDE using the [Databricks Connect](https://docs.microsoft.com/en-us/azure/databricks/dev-tools/databricks-connect#visual-studio-code) feature.
-- Continuous Development with [Python Local Packaging](https://packaging.python.org/tutorials/packaging-projects/)
-- Example machine learning model which uses the Development Framework from end to end.
+- Authenticate to Databricks API/CLI using Azure Service Principal Authentication
+- Azure resource deployment using BICEP
+- Infrastrusture as Code for interacting with Databricks API and CLI using Bash
+- Infrastrusture as Code for interacting with Databricks API and CLI using Python SDK
+- Docker Environment in VS Code (Section 2)
 
 ---
 
@@ -64,11 +67,9 @@ The programmatic way for which options 1 & 2 allow us to interact the Databricks
 
 In a nutshell Continuous **Delivery** is a partly manual process where developers can deploy any changes to customers by simply clicking a button, while continuous **Deployment** emphasizes automating the entire process.
  
-When interacting with the Databricks API, it is my view that Databricks Jobs, Clusters, Secret Scopes etc. should come within the realm of "Infrastructure", and as such, we must find ways to enshrine this Infrastructure _as code_ , so that it can be consistently redeployed in a Continuous **Deployment** framework as it cascades across environments. 
+Users should be able to deploy the full CICD framework within Azure via simply creating the required Service Principals, updating Github Secrets with Service Principal Credentials, and finally, updating a few JSON parameters with their Azure specific environment. 
 
-All Databricks related infrastrucutre will sit within an environment parameter file [here](#Update-Yaml-Pipeline-Parameters-Files), alongside all other infrastructure parameters. The Yaml Pipeline will point to multiple Bash Scripts (contained within .github/workflows/Utilities ). Each Bash script will ingest the appropriate environment parameter file for deploying Azure resources, or Azure Databrick API calls. 
-
-This does not preclude interacting with the Databricks API on ad hoc basis using the "Continuous **Development** Framework". We in fact provide the Development Framework to do this from a Docker Container in VS Code (Section 2)
+As long as the inputs to the parameters files and also secrets provided are correct, there is no need to understand/interact with the Bash scripts in the Utilities folder. 
 
 </details>
 
@@ -106,26 +107,13 @@ The Branching Strategy will be built out of the box when we deploy our resources
   
 </details>
 
----
-
-# Under The Hood
-<details close>
-<summary>Click Dropdown... </summary>
-<br>
-  
-- Authenticate to Databricks API/CLI using Azure Service Principal Authentication
-- Yaml Pipelines in Github Actions
-- Azure resource deployment in BICEP
-- Databricks API in Bash
-- Databricks CLI in Bash
-- Databricks API using Python SDK (Section 2)
-- Docker Environment in VS Code (Section 2)
-  
-</details>
 
 ---
 
 # Clone Repository
+<details close>
+<summary>Click Dropdown... </summary>
+<br>
 
 - In your Github account create a new Repository "DatabricksAutomation"
 - Click "Import Code"
@@ -137,46 +125,6 @@ The Branching Strategy will be built out of the box when we deploy our resources
 <img width="523" alt="image" src="https://user-images.githubusercontent.com/108273509/188488372-5970bd86-864f-42d4-9761-37aedd4ab282.png">
 
 - Within your VS Code , "View" --> "Command Pallette" --> "Git: Clone" --> Select the Repo you have just created 
----
-
-# Create Databricks Custom Role (assigned to Databricks Service Principal Later)
-- Login to Azure within VS Code Terminal (Powershell)
-```powershell
-az login
-```
-- Copy and paste into VS Code Terminal (Powershell)
-```powershell
-# Update This To Your SubscriptionID
-$subid = "<>"  
-```
-
-```powershell
-$pathToJson = ".github\workflows\RBAC_Role_Definition\DBX_Custom_Role.json"
-$a = Get-Content '.github\workflows\RBAC_Role_Definition\DBX_Custom_Role.json' -raw | ConvertFrom-Json
-$pathToJson = ".github\workflows\RBAC_Role_Definition\DBX_Custom_Role.json" 
-#Ensure That assignableScopes In DBX_Custom_Role is an Empty Array
-$a[0].assignableScopes += "/subscriptions/$subid"
-$a | ConvertTo-Json | set-content $pathToJson
-az role definition create --role-definition ".github\workflows\RBAC_Role_Definition\DBX_Custom_Role.json" 
-
-```
-
-<details close>
-<summary>Option To Create In Portal. Drop Down... </summary>
-<br>
-1. Open IAM at Subscription Level and navigate to creating a Custom Role (as shown below)  
-<img width="1022" alt="image" src="https://user-images.githubusercontent.com/108273509/186198305-a28acbf2-fe97-4805-b069-a339fb475894.png">
-<br>
-<br>
-
-2. Provide Cusom Role Name
-<img width="527" alt="image" src="https://user-images.githubusercontent.com/108273509/186198849-d8700153-88b8-44f8-886c-147bea3c3280.png">
-<br>
-<br>
-  
-3. Provide Databricks Permissions
-<img width="1199" alt="image" src="https://user-images.githubusercontent.com/108273509/186199265-9485e474-c21d-4825-b64a-5e33083e60fd.png">
-
 </details>
 
 ---
@@ -229,13 +177,10 @@ az ad user show --id ciaranh@microsoft.com --query "{roleBeneficiaryObjID:id}"
 
 - The Parameters file can be thought of as a quasi ARM Template for Databricks
   - Important: Databricks API is not native to ARM and thus BICEP. This is a distinct disadvantage relative to Terraform which allows us to configure Databricks Workspaces and for example, Clusters, in the same place.
-  - BICEP/ARM does not rely upon a state file deployment and also deploys resources incrementally, which is more effecient
-  - There may be a lag between new feauture releases and Terraform updates. 
-  - On balance, it was felt that BICEP wins out for this Azure specific deployment. However, I do recognise Terraform is a serious contender offering many advantages.
 - Now to update the Parameters files with the amendments below. Do it for each environment within _VS Code_ . 
 - Parameters files can be found at: /.github/workflows/Pipeline_Param/<environment-file-name>
 - The JSON objects are fed to their respective Bash Script, in which the Databricks/API is invoked using a For-Loop. Therefore, the JSON parameters file is flexible, allowing us to add and remove objects at will. 
-- Important: When assigning RBACs to Users, it would be easier to use alias' instead of objectIDs, for example ciaranh@microsoft.com. In order to do this you require permissions to use the Graph API, requiring approval from a Global Admin. For simplicity, I have used ObjectId's instead.
+- Important: When assigning RBACs to Users, it would be easier to use alias' instead of objectIDs, for example ciaranh@microsoft.com. This requires Graph API permissions, which only a Global Admin can assign.
 
 ```json
 
@@ -301,29 +246,6 @@ az ad user show --id ciaranh@microsoft.com --query "{roleBeneficiaryObjID:id}"
                 "wheel_cluster": "dbx-sp-cluster",
                 "upload_to_cluster?": true
             }
-    ],
-    "Jobs": [                                   # Ignore. Still to Do
-        {
-            "name": "job_remote_analysis",
-            "settings": {
-                "name": "job_remote_analysis",
-                "email_notifications": {
-                    "no_alert_for_skipped_runs": false
-                },
-                "max_concurrent_runs": 1,
-                "tasks": [
-                    {
-                        "task_key": "job_remote_analysis",
-                        "notebook_task": {
-                            "notebook_path": "/Repos/ce79c2ef-170d-4f1c-a706-7814efb94898/DevelopmentFolder/src/tutorial/scripts/framework_testing/remote_analysis",
-                            "source": "WORKSPACE"
-                        },
-                        "cluster_name": "dbx-sp-cluster"
-                    }
-                ],
-                "format": "MULTI_TASK"
-            }
-        }
     ],
     "Git_Configuration": [                        
         {
