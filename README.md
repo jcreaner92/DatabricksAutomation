@@ -1,5 +1,6 @@
 ![Banner](docs/images/MLOps_for_databricks_Solution_Acclerator_logo.JPG)
-![image](https://user-images.githubusercontent.com/108273509/191728929-9d8d99c4-e23d-4918-8e7c-09bfe9bb5980.png)
+
+![image](https://user-images.githubusercontent.com/108273509/191729014-bfcaf55f-8a22-4734-acad-c9c2351d3292.png)
 
 ## Table of Contents
 - [About This Repository](#About-This-Repository)
