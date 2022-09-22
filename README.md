@@ -43,23 +43,22 @@ The net effect is a disproportionate amount of the Data Scientist/Engineers time
   - UAT
   - PreProduction
   - Production
-- Full CICD
-- Infrastrusture as Code for interacting with Databricks API and CLI
+- Full CI-CD between environments.
+- Infrastrusture as Code for interacting with Databricks API and also CLI
 - Logging Framework using the [Opensensus Azure Monitor Exporters](https://github.com/census-instrumentation/opencensus-python/tree/master/contrib/opencensus-ext-azure)
 - Support for Databricks Development from VS Code IDE using the [Databricks Connect](https://docs.microsoft.com/en-us/azure/databricks/dev-tools/databricks-connect#visual-studio-code) feature.
-- Authenticate to Databricks API/CLI using Azure Service Principal Authentication
+- Azure Service Principal Authentication
 - Azure resource deployment using BICEP
-- Infrastrusture as Code for interacting with Databricks API and CLI using Bash
-- Infrastrusture as Code for interacting with Databricks API and CLI using Python SDK
+- Examples within Development Framework using the Python SDK for Databricks
 - Docker Environment in VS Code (Section 2)
 
 ---
 
 # Databricks as Infrastructure
-<details close>
+<details open>
 <summary>Click Dropdown... </summary>
 <br>
-There are many ways that a User may create Databricks Jobs, Notebooks, Clusters, Secret Scopes, file uploads to DBFS and Clusters etc.
+There are many ways that a User may create Databricks Jobs, Notebooks, Clusters, Secret Scopes etc.
 For example, they may interact with Databricks API/CLI from:
 1. Their local VS Code;
 2. Within Databricks UI; or 
@@ -67,23 +66,23 @@ For example, they may interact with Databricks API/CLI from:
  
 The programmatic way for which options 1 & 2 allow us to interact the Databricks API is akin to "Continuous **Development**", as opposed to "Continuous **Deployment**". The former is strong on flexibility, however, it is somewhat weak on governance and reproducibility. 
 
-In a nutshell Continuous **Delivery** is a partly manual process where developers can deploy any changes to customers by simply clicking a button, while continuous **Deployment** emphasizes automating the entire process.
+In a nutshell, Continuous **Delivery** is a partly manual process where developers can deploy any changes to customers by simply clicking a button, while continuous **Deployment** emphasizes automating the entire process.
  
-Users should be able to deploy the full CICD framework within Azure via simply creating the required Service Principals, updating Github Secrets with Service Principal Credentials, and finally, updating a few JSON parameters with their Azure specific environment. 
+Users should be able to deploy the full CI-CD framework within Azure via simply creating the required Service Principals, updating Github Secrets with Service Principal Credentials, and then finally, updating a few JSON parameters with their Azure specific environment. 
 
-As long as the inputs to the parameters files and also secrets provided are correct, there is no need to understand/interact with the Bash scripts in the Utilities folder. 
+As long as the inputs to the parameters files and also secrets provided are correct, there is no need to understand/interact with the Bash scripts within the Utilities folder. 
 
 </details>
 
 ---
 
  # Continuous Deployment + Branching Strategy
-<details close>
+<details open>
 <summary>Click Dropdown... </summary>
 <br>
 It is hard to talk about Continuous Deployment without addressing the manner in which that Deployment should look... for example... what branching strategy will be adopted?
 
-The Branching Strategy will be built out of the box when we deploy our resources in a later step. It follows a Github Flow paradigm to promote rapid Continuous Integration, with some nuances. (see link within footnote which contains SST Git Flow for Data Science Toolkit) [^6] 
+The Branching Strategy is configured automatically. It follows a Github Flow paradigm to promote rapid Continuous Integration, with some nuances. (see the link within the footnote which contains the SST Git Flow written by Willie Ayles for the Data Science Toolkit - This provides a narrative explaining the numbers below) [^6] 
 
 <img width="805" alt="image" src="https://user-images.githubusercontent.com/108273509/186166011-527144d5-ebc1-4869-a0a6-83c5538b4521.png">
 
@@ -97,7 +96,7 @@ The Branching Strategy will be built out of the box when we deploy our resources
 ---
 
 # Prerequisites
-<details close>
+<details open>
 <summary>Click Dropdown... </summary>
 <br>
   
