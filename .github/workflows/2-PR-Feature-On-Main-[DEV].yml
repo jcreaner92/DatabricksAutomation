@@ -27,6 +27,9 @@ jobs:
     steps:
       - run: |
           echo "Checks Test!!!"
+      - run: |
+          echo "${{ github.head_ref }}"
+          echo "${{ github.base_ref }}"
 
 
   PR_Approved_Feature_To_Main:
@@ -38,9 +41,6 @@ jobs:
         matrix:
           environments:          [Development]    
     
-
-
-
       steps:
         - run: |
             echo "${{ github.head_ref }}"
@@ -125,8 +125,8 @@ jobs:
           run:                  bash ./.github/workflows/Utilities/Utils-Create-Scope.sh
 
 # 11.  Store Important Environment Variables In Key Vault. They Can Be Accessed Within DBUtils In Databricks via The Databricks Credentials inside the Secret Scope (above)
-        - name:                 Store Important Environment Variables In Key Vault
-          run:                  bash ./.github/workflows/Utilities/Utils-Create-Scope.sh
+        #- name:                 Store Important Environment Variables In Key Vault
+        #  run:                  bash ./.github/workflows/Utilities/
         
 
         - name:                 Create DBX Cluster

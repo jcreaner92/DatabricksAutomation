@@ -29,7 +29,7 @@ jobs:
             echo "${{ github.head_ref }}"
             echo "${{ github.base_ref }}"
 
-        - uses:                  actions/checkout@v3
+        - uses:                   actions/checkout@v3
           with:
             ref:                   ${{ github.base_ref }} ## THIS MUST BE Release Branch
 
@@ -60,6 +60,13 @@ jobs:
             filename:           'Infrastructure/DBX_CICD_Deployment/Bicep_Params/${{ matrix.environments }}/Bicep.parameters.json'
             prefix:             param
 
+# 5.  __Order Important__ Create Custom Role
+        - name:                 Create Databricks Custom Role
+          continue-on-error:    true
+          run:                  bash ./.github/workflows/Utilities/Utils-Databricks-Create-Custom-Role.sh
+          env:
+            environment:        ${{ matrix.environments }}
+
         # Only run if file path !infra AND merging into main, then don't run this!
         - name:                 Deploy DBX CICD Azure Resources
           if:                   steps.filter.outputs.workflows != 'true'
@@ -75,8 +82,8 @@ jobs:
             environment:        ${{ matrix.environments }}
 
 
-        - name:                 Authenticate to DBX Service Principal
-          run:                  bash ./.github/workflows/Utilities/Utils-DBX-SP-Authenticate.sh
+        - name:                 Authenticate to DBX Service Principal + Set AAD Tokens As Env Variables
+          run:                  bash ./.github/workflows/Utilities/Utils-DBX-AAD-Token-Autentication.sh
           env:
             ARM_CLIENT_ID:      ${{ secrets.ARM_CLIENT_ID }}
             ARM_CLIENT_SECRET:  ${{ secrets.ARM_CLIENT_SECRET }}
@@ -88,14 +95,20 @@ jobs:
           with:
             python-version:     '3.8'
 
+# 7.  __Order Important__ Set Environment Variables For Resources Created On The Fly.
+        - name:                 Set Environment Variables For Resources Created On The Fly.
+          run:                  bash ./.github/workflows/Utilities/Utils-Env-Variables-For-Azure-Resources-Created.sh
+
 
         - name:                 Create And Store PAT Token In Key Vault
           run:                  bash ./.github/workflows/Utilities/Utils-Create-PAToken.sh
 
-
-        - name:                 Create DBX Secret Scopes
+        - name:                 Save Databricks SP Credentials Within Secret Scopes  
           run:                  bash ./.github/workflows/Utilities/Utils-Create-Scope.sh
-        
+
+# 11.  Store Important Environment Variables In Key Vault. They Can Be Accessed Within DBUtils In Databricks via The Databricks Credentials inside the Secret Scope (above)
+        #- name:                 Store Important Environment Variables In Key Vault
+        #  run:                  bash ./.github/workflows/Utilities/Utils-Create-Scope.sh
 
         - name:                 Create DBX Clusters
           if:                   steps.filter.outputs.workflows != 'true'
