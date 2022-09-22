@@ -138,7 +138,7 @@ The Branching Strategy will be built out of the box when we deploy our resources
 Steps:
   1. Open the Terminal Window in VSCode. Enter:
 ```bash
-# Check To See subid variable still stored. If not use $subid = "<>"  
+$subid = "<>"  
 echo $subid
 az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Owner --scopes /subscriptions/$subid --sdk-auth
 ```
