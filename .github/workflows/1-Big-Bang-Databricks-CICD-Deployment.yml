@@ -73,6 +73,7 @@ jobs:
 # 6.  __Order Important__ Authenticate to DBX Service Principal + Set AAD Tokens As Env Variable
         - name:                 Authenticate to DBX Service Principal + Set AAD Tokens As Env Variables
           run:                  bash ./.github/workflows/Utilities/Utils-DBX-AAD-Token-Autentication.sh
+          env:
             ARM_CLIENT_ID:      ${{ secrets.ARM_CLIENT_ID }}
             ARM_CLIENT_SECRET:  ${{ secrets.ARM_CLIENT_SECRET }}
             ARM_TENANT_ID:      ${{ secrets.ARM_TENANT_ID }}
