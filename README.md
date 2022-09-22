@@ -59,10 +59,10 @@ The net effect is a disproportionate amount of the Data Scientist/Engineers time
 <summary>Click Dropdown... </summary>
 <br>
 There are many ways that a User may create Databricks Jobs, Notebooks, Clusters, Secret Scopes etc.
-For example, they may interact with Databricks API/CLI from:
-1. Their local VS Code;
-2. Within Databricks UI; or 
-3. A Yaml Pipeline deployment on a DevOps Agent (Github Actions/Azure DevOps etc.)
+For example, they may interact with the Databricks API/CLI from:
+- Their local VS Code;
+- Within Databricks UI; or 
+- A Yaml Pipeline deployment on a DevOps Agent (Github Actions/Azure DevOps etc.)
  
 The programmatic way for which options 1 & 2 allow us to interact the Databricks API is akin to "Continuous **Development**", as opposed to "Continuous **Deployment**". The former is strong on flexibility, however, it is somewhat weak on governance and reproducibility. 
 
