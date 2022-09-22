@@ -1,6 +1,7 @@
 # Databricks notebook source
 """Example of framework usage"""
-# If setting up scope with Keyvault --> Ensure you have RBAC to KV Admin From 'AzureDatabrics' to Key Vault. Test....ghnghngh
+# If setting up scope with Keyvault --> Ensure you have RBAC to KV Admin From 'AzureDatabrics' to Key Vault. 
+# Test....Demo Merge Delete
 import random
 from acai_ml.core import Engine
 import pandas as pd
