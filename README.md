@@ -102,8 +102,8 @@ The Branching Strategy is configured automatically. It follows a Github Flow par
 - Access to an Azure Subscription
 - VS Code installed.
 - Docker Desktop Installed (Instructions below)
-- Azure CLI Installed (This Accelerator is tested on version 2.39)
-  
+- Azure CLI Installed (This Accelerator is tested on version 2.39) - " azure cli upgrade pip "
+
 </details>
 
 
