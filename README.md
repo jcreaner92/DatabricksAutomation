@@ -137,7 +137,7 @@ The Branching Strategy is configured automatically. It follows a Github Flow par
 Steps:
   1. Open the Terminal Window in VSCode. Enter:
 ```bash
-$subid = "<>"  
+$subid = "<>"  # REPLACE
 echo $subid
 az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Owner --scopes /subscriptions/$subid --sdk-auth
 ```
