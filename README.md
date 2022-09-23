@@ -135,15 +135,16 @@ The Branching Strategy is configured automatically. It follows a Github Flow par
 Steps:
   1. Open the Terminal Window in VSCode. Enter:
 ```bash
-$subid = "<>"  # REPLACE
-echo $subid
-az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Owner --scopes /subscriptions/$subid --sdk-auth
+$SubscriptionId = "<>"  # REPLACE
+echo "Print Subscription ID: $SubscriptionId"
 ```
-  2. Ensure that the Service Principal names are unique within your Tenant. If not unique, you may see the error "Insufficient privileges to complete the operation"
-  3. Do Not Delete Output (required in Next Step) [^4]
-  4. Create Github Secret titled "AZURE_CREDENTIALS" and paste output from step 2. (Include curly brackets {}) [^5] <br>
-  5. For more information on '--sdk-auth' has been deprecated flag [^7] 
+```bash
+echo "Create The Service Principal - DO NOT DELETE OUTPUT"
+az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Owner --scopes /subscriptions/$SubscriptionId --sdk-auth
+```
 
+  2. Ensure that the Service Principal names are unique within your Tenant. If not unique, you may see the error "Insufficient privileges to complete the operation"
+  4. Create Github Secret titled "AZURE_CREDENTIALS" and paste output from step 2. (Include curly brackets {}) [^5] <br>
 ---
 
 # Create Databricks Service Principal
@@ -152,16 +153,31 @@ az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Owner --scope
 Steps:
 1. Open the Terminal Window in VSCode. Enter (copy output to a text file): [^2]
 ```bash 
-az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Contributor --scopes /subscriptions/$subid --query "{ARM_TENANT_ID:tenant, ARM_CLIENT_ID:appId, ARM_CLIENT_SECRET:password}"
+echo "Create The Service Principal - DO NOT DELETE OUTPUT"
+az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Contributor --scopes /subscriptions/$SubscriptionId --query "{ARM_TENANT_ID:tenant, ARM_CLIENT_ID:appId, ARM_CLIENT_SECRET:password}"
 ```
+
+```bash
+echo "Save The ClientID From Previos Steps output. "ARM_CLIENT_ID"
+$DBX_SP_Client_ID = "<>"  # REPLACE
+```
+
 2. Create Github Secrets entitled "ARM_CLIENT_ID", "ARM_CLIENT_SECRET" and "ARM_TENANT_ID". Values are contained within output from step 1. Do not include double quotes for Secret Names and Values. [^3] 
-3. In VS Code Terminal retrieve ObjectID of Databricks Service Principal by using the ARM_CLIENT_ID from the previous step:  
+
+
+
+# Retrieve Object Id's
+
+**Why**: The Object IDs will be used when assigning RBAC permissions at a later stage. 
+
+4. In VS Code Terminal retrieve ObjectID of Databricks Service Principal by entering:  
 ```bash 
-az ad sp show --id <ARM_CLIENT_ID> --query "{roleBeneficiaryObjID:id}"
+$DBX_SP_ObjID = ( az ad sp show --id $DBX_SP_Client_ID --query "{roleBeneficiaryObjID:id}" )
 ```
+
 4. In VSCode Terminal Retrieve your own ObectID:  
 ```bash
-az ad user show --id ciaranh@microsoft.com --query "{roleBeneficiaryObjID:id}"
+$User_ObjID = ( az ad user show --id ciaranh@microsoft.com --query "{roleBeneficiaryObjID:id}" )
 ```
 
 # Final Snapshot of Github Secrets
@@ -181,90 +197,47 @@ az ad user show --id ciaranh@microsoft.com --query "{roleBeneficiaryObjID:id}"
 - The JSON objects are fed to their respective Bash Script, in which the Databricks/API is invoked using a For-Loop. Therefore, the JSON parameters file is flexible, allowing us to add and remove objects at will. 
 - Important: When assigning RBACs to Users, it would be easier to use alias' instead of objectIDs, for example ciaranh@microsoft.com. This requires Graph API permissions, which only a Global Admin can assign.
 
-```json
 
-{
-    "SubscriptionId": "<>",                   # Enter Your SubID
-    
-
-    "Location": "uksouth", 
-    "TemplateParamFilePath":"Infrastructure/DBX_CICD_Deployment/Bicep_Params/Development/Bicep.parameters.json",
-    "TemplateFilePath":"Infrastructure/DBX_CICD_Deployment/Main_DBX_CICD.bicep",
-    "AZURE_DATABRICKS_APP_ID": "2ff814a6-3304-4ab8-85cb-cd0e6f879c1d",
-    "MANAGEMENT_RESOURCE_ENDPOINT": "https://management.core.windows.net/",
-    "RBAC_Assignments": [          
-        {
-            "roles": [
-                "Key Vault Administrator"
-             ],
-            "roleBeneficiaryObjID": "<>"        # Your ObjectID Saved In Text File
-            "Description": "You Object ID",
-            "principalType": "User"
-        },
-        { 
-            "roles": [
-                "Key Vault Administrator",
-                 "Contributor",
-                 "DBX_Custom_Role"
-             ],    
-            "roleBeneficiaryObjID": "<>"         # Databricks_API_SP ObjectID Saved In Text File
-            "Description": "Databricks SPN",
-            "principalType": "ServicePrincipal"
-        },
-
-    ],
-    "Clusters": [                       
-        {
-            "cluster_name": "dbx-sp-cluster",
-            "spark_version": "10.4.x-scala2.12",
-            "node_type_id": "Standard_D3_v2",
-            "spark_conf": {},
-            "autotermination_minutes": 30,
-            "runtime_engine": "STANDARD",
-            "autoscale": {
-                "min_workers": 2,
-                "max_workers": 4
-            }
-        },
-        {
-            "cluster_name": "dbx-sp-cluster2",
-            "spark_version": "10.4.x-scala2.12",
-            "node_type_id": "Standard_D3_v2",
-            "spark_conf": {},
-            "autotermination_minutes": 30,
-            "runtime_engine": "STANDARD",
-            "autoscale": {
-                "min_workers": 2,
-                "max_workers": 4
-            }
-        }
-    ],
-    "WheelFiles": [                      
-            {
-                "setup_py_file_path": "src/pipelines/dbkframework/setup.py",
-                "wheel_cluster": "dbx-sp-cluster",
-                "upload_to_cluster?": true
-            }
-    ],
-    "Git_Configuration": [                        
-        {
-            "git_username": "ciaran28",           # Uppdate With Your Github Username 
-            "git_provider": "gitHub"
-        }
-    ],
-    "Repo_Configuration": [                        
-        {
-            "url": "https://github.com/ciaran28/DatabricksAutomation", # Change To Your Own Repository
-            "provider": "gitHub",
-            "path": "DevelopmentFolder"            
-        }
-    ]
-}
-
-
+We will update the parameters file below, for all four environments by using powershell within VS Code, using the scripts below:
+```ps
+echo "Update The Variables Below... "
+$Git_Configuration = "Ciaran28"
+$Repo_ConfigurationURL = "https://github.com/ciaran28/DatabricksAutomation"
 ```
+  
+  
+```ps
+echo "Update The Parameter Files"
+$files = @('Development.json','UAT.json', 'PreProduction.json', 'Production.json' )
 
----
+Foreach($file in $files)
+{
+    $JsonData = Get-Content .github\workflows\Pipeline_Param\$file -raw | ConvertFrom-Json
+
+    $JsonData.RBAC_Assignments | % {if($_.Description -eq 'You Object ID'){$_.roleBeneficiaryObjID=$User_ObjID}}
+
+    $JsonData.RBAC_Assignments | % {if($_.Description -eq 'Databricks SPN'){$_.roleBeneficiaryObjID=$DBX_SP_ObjID}}
+
+    $JsonData.update | % {
+        $JsonData.SubscriptionId = $SubscriptionId                                                                                 
+    }
+
+    foreach ($Obj in $JsonData.Git_Configuration)
+    {
+        ($Obj.git_username = $Git_Configuration )
+    }
+
+    foreach ($Obj in $JsonData.Repo_Configuration)
+    {
+        ($Obj.url = $Repo_ConfigurationURL )
+    }
+
+    #echo $JsonData
+
+    $JsonData | ConvertTo-Json -Depth 4  | set-content .github\workflows\Pipeline_Param\$file
+
+}
+```
 
 # Deploy The Azure Environments 
 
