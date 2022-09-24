@@ -12,7 +12,7 @@
 - [Create Main Service Principal](#Create-Main-Service-Principal)
 - [Create Databricks Service Principal](#Create-Databricks-Service-Principal)
 - [Final Snapshot of Github Secrets](#Final-Snapshot-of-Github-Secrets)
-- [Retrieve Object Id's](#Retrieve-Object-Id's)
+- [Retrieve Object Id's](#Retrieve-Object-Ids)
 - [Update Yaml Pipeline Parameters Files](#Update-Yaml-Pipeline-Parameters-Files)
 - [Deploy The Azure Environments](#Deploy-The-Azure-Environments)
 - [Run Machine Learning Scripts](#Run-Machine-Learning-Scripts)
@@ -186,7 +186,7 @@ Secrets in Github should look exactly like below. The secrets are case sensitive
 <img width="431" alt="image" src="https://user-images.githubusercontent.com/108273509/188156231-68700283-dc93-4c2d-a739-0eff23b47591.png">
 
 
-# Retrieve Object Id's
+# Retrieve Object Ids
 
 **Why**: The Object IDs will be used when assigning RBAC permissions at a later stage. 
 
