@@ -36,6 +36,19 @@ The net effect is a disproportionate amount of the Data Scientist/Engineers time
 
 ---
 
+# Prerequisites
+<details open>
+<summary>Click Dropdown... </summary>
+<br>
+  
+- Github Account
+- Access to an Azure Subscription
+- VS Code installed.
+- Docker Desktop Installed (Instructions below)
+- Azure CLI Installed (This Accelerator is tested on version 2.39) - " azure cli upgrade pip "
+
+</details>
+
 # Details of The Accelerator
 
 - Creation of four environments:
@@ -66,11 +79,7 @@ For example, they may interact with the Databricks API/CLI from:
  
 The programmatic way for which options 1 & 2 allow us to interact the Databricks API is akin to "Continuous **Development**", as opposed to "Continuous **Deployment**". The former is strong on flexibility, however, it is somewhat weak on governance and reproducibility. 
 
-In a nutshell, Continuous **Delivery** is a partly manual process where developers can deploy any changes to customers by simply clicking a button, while continuous **Deployment** emphasizes automating the entire process.
- 
-Users should be able to deploy the full CI-CD framework within Azure via simply creating the required Service Principals, updating Github Secrets with Service Principal Credentials, and then finally, updating a few JSON parameters with their Azure specific environment. 
-
-As long as the inputs to the parameters files and also secrets provided are correct, there is no need to understand/interact with the Bash scripts within the Utilities folder. 
+In a nutshell, Continuous **Development** is a partly manual process where developers can deploy any changes to customers by simply clicking a button, while continuous **Deployment** emphasizes automating the entire process.
 
 </details>
 
@@ -82,7 +91,7 @@ As long as the inputs to the parameters files and also secrets provided are corr
 <br>
 It is hard to talk about Continuous Deployment without addressing the manner in which that Deployment should look... for example... what branching strategy will be adopted?
 
-The Branching Strategy is configured automatically. It follows a Github Flow paradigm to promote rapid Continuous Integration, with some nuances. (see the link within the footnote which contains the SST Git Flow written by Willie Ayles for the Data Science Toolkit - This provides a narrative explaining the numbers below) [^6] 
+The Branching Strategy is configured automatically. It follows a Github Flow paradigm to promote rapid Continuous Integration, with some nuances. (see the link within the footnote which contains the SST Git Flow written by Willie Ahlers for the Data Science Toolkit - This provides a narrative explaining the numbers below) [^6] 
 
 <img width="805" alt="image" src="https://user-images.githubusercontent.com/108273509/186166011-527144d5-ebc1-4869-a0a6-83c5538b4521.png">
 
@@ -94,20 +103,6 @@ The Branching Strategy is configured automatically. It follows a Github Flow par
 </details>
 
 ---
-
-# Prerequisites
-<details open>
-<summary>Click Dropdown... </summary>
-<br>
-  
-- Github Account
-- Access to an Azure Subscription
-- VS Code installed.
-- Docker Desktop Installed (Instructions below)
-- Azure CLI Installed (This Accelerator is tested on version 2.39) - " azure cli upgrade pip "
-
-</details>
-
 
 ---
 
