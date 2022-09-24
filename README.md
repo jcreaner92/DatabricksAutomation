@@ -168,11 +168,13 @@ az ad sp create-for-rbac -n InsertName --role Contributor --scopes /subscription
 ```
 
 ```ps
-echo "Save The "ARM_CLIENT_ID" From Previous Steps Output:"
+echo "Save The ARM_CLIENT_ID From Previous Steps Output:"
+
 $DBX_SP_Client_ID = "<>"
 ```
 
-Create Github Secrets entitled "ARM_CLIENT_ID", "ARM_CLIENT_SECRET" and "ARM_TENANT_ID". Values are contained within output from step 1. Do not include double quotes for Secret Names and Values. [^3] 
+Create Github Secrets entitled "ARM_CLIENT_ID", "ARM_CLIENT_SECRET" and "ARM_TENANT_ID".  
+Do not include double quotes for Secret Names and Values.
 
 
 # Final Snapshot of Github Secrets
@@ -188,12 +190,18 @@ Secrets in Github should look exactly like below. The secrets are case sensitive
 
 4. In VS Code Terminal retrieve ObjectID of Databricks Service Principal by entering:  
 ```ps
-$DBX_SP_ObjID = ( az ad sp show --id $DBX_SP_Client_ID --query "{roleBeneficiaryObjID:id}" )
+$DBX_SP_ObjID=( az ad sp show --id $DBX_SP_Client_ID --query "{roleBeneficiaryObjID:id}" -o tsv )
 ```
+ERROR: If you are on the old Azure CLI, the command above will return null. Instead use the command below:
+
+```ps
+$DBX_SP_ObjID=( az ad sp show --id $DBX_SP_Client_ID --query "{roleBeneficiaryObjID:objectId}" -o tsv )
+```
+
 
 4. In VSCode Terminal Retrieve your own ObectID:  
 ```ps
-$User_ObjID = ( az ad user show --id ciaranh@microsoft.com --query "{roleBeneficiaryObjID:id}" )
+$User_ObjID=( az ad user show --id ciaranh@microsoft.com --query "{roleBeneficiaryObjID:id}" -o tsv )
 ```
 
 ---
@@ -207,11 +215,13 @@ We will update the parameters file below, for all four environments, by using po
   
 ```ps
 echo "Enter Your Git Username... "
+  
 $Git_Configuration = "Ciaran28"
 ```
   
   ```ps
 echo "Enter Your Git Repo Url... "
+  
 $Repo_ConfigurationURL = "https://github.com/ciaran28/DatabricksAutomation"
 ```
   
@@ -244,7 +254,7 @@ Foreach($file in $files)
 
     #echo $JsonData
 
-    $JsonData | ConvertTo-Json -Depth 4  | set-content .github\workflows\Pipeline_Param\$file
+    $JsonData | ConvertTo-Json -Depth 4  | set-content .github\workflows\Pipeline_Param\$file -NoNewline
 
 }
 ```
