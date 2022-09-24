@@ -4,18 +4,18 @@
 
 ## Table of Contents
 - [About This Repository](#About-This-Repository)
+- [Prerequisites](#Prerequisites)
 - [Details of The Accelerator](#Details-of-The-Accelerator)
 - [Databricks as Infrastructure](#Databricks-as-Infrastructure)
 - [Continuous Deployment + Branching Strategy](#Continuous-Deployment-+-Branching-Strategy)
-- [Prerequisites](#Prerequisites)
-- [Under The Hood](#Under-The-Hood)
-- [Create Databricks Custom Role On DBX SPN](#Create-Databricks-Custom-Role-On-DBX-SPN)
+- [Clone Repository](#Clone-Repository)
 - [Create Main Service Principal](#Create-Main-Service-Principal)
-- [Create Databricks SPN](#Create-Databricks-SPN)
+- [Create Databricks Service Principal](#Create-Databricks-Service-Principal)
 - [Final Snapshot of Github Secrets](#Final-Snapshot-of-Github-Secrets)
+- [Retrieve Object Id's](#Retrieve-Object-Id's)
 - [Update Yaml Pipeline Parameters Files](#Update-Yaml-Pipeline-Parameters-Files)
 - [Deploy The Azure Environments](#Deploy-The-Azure-Environments)
-- [Run Python Scripts](#Run-Python-Scripts)
+- [Run Machine Learning Scripts](#Run-Machine-Learning-Scripts)
 
 ---
 
