@@ -45,7 +45,7 @@ The net effect is a disproportionate amount of the Data Scientist/Engineers time
 - Access to an Azure Subscription
 - VS Code installed.
 - Docker Desktop Installed (Instructions below)
-- Azure CLI Installed (This Accelerator is tested on version 2.39) - " azure cli upgrade pip "
+- Azure CLI Installed (This Accelerator is tested on version 2.39)
 
 </details>
 
@@ -70,14 +70,18 @@ The net effect is a disproportionate amount of the Data Scientist/Engineers time
 # Databricks as Infrastructure
 <details open>
 <summary>Click Dropdown... </summary>
+
 <br>
-There are many ways that a User may create Databricks Jobs, Notebooks, Clusters, Secret Scopes etc.
+There are many ways that a User may create Databricks Jobs, Notebooks, Clusters, Secret Scopes etc. <br>
+<br>
 For example, they may interact with the Databricks API/CLI from:
-- Their local VS Code;
-- Within Databricks UI; or 
-- A Yaml Pipeline deployment on a DevOps Agent (Github Actions/Azure DevOps etc.)
+<br>
+1. Their local VS Code <br>
+2. Within Databricks UI; or <br>
+3. A Yaml Pipeline deployment on a DevOps Agent (Github Actions/Azure DevOps etc.) <br>
+<br>
  
-The programmatic way for which options 1 & 2 allow us to interact the Databricks API is akin to "Continuous **Development**", as opposed to "Continuous **Deployment**". The former is strong on flexibility, however, it is somewhat weak on governance and reproducibility. 
+The programmatic way for which options 1 & 2 allow us to interact the Databricks API is akin to "Continuous **Development**", as opposed to "Continuous **Deployment**". The former is strong on flexibility, however, it is somewhat weak on governance and reproducibility. <br>
 
 In a nutshell, Continuous **Development** is a partly manual process where developers can deploy any changes to customers by simply clicking a button, while continuous **Deployment** emphasizes automating the entire process.
 
