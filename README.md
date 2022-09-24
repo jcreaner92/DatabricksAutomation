@@ -133,25 +133,33 @@ The Branching Strategy is configured automatically. It follows a Github Flow par
 **Why**: You will need to assign RBAC permissions to Azure Resources created on the fly. See JSON document "RBAC_Assignment" secion.
 
 Steps:
-  1. Open the Terminal Window in VSCode. Enter:
-```bash
-$SubscriptionId = "<>"  # REPLACE
-echo "Print Subscription ID: $SubscriptionId"
+Open the Terminal Window in VSCode. Enter:
+
+```ps
+echo "Enter Your Azure Subsription ID"
+$SubscriptionId = " "
 ```
-```bash
-echo "Create The Service Principal - DO NOT DELETE OUTPUT"
+
+```ps
+echo "Create The Service Principal - Provide Unique Name: Suggestions - CICD_MainSP_<UniqSuffix> "
+echo "WARNING: DO NOT DELETE OUTPUT"
+
 az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Owner --scopes /subscriptions/$SubscriptionId --sdk-auth
 ```
 
-  2. Ensure that the Service Principal names are unique within your Tenant. If not unique, you may see the error "Insufficient privileges to complete the operation"
-  4. Create Github Secret titled "AZURE_CREDENTIALS" and paste output from step 2. (Include curly brackets {}) [^5] <br>
+Ensure that the Service Principal names are unique within your Tenant. If not unique, you may see the error "Insufficient privileges to complete the operation"
+
+Create Github Secret titled "AZURE_CREDENTIALS" and paste output from step 2. (Include curly brackets {})
+
 ---
 
 # Create Databricks Service Principal
 
 **Why**: For those who only need permissions to create resources and interact with the Databricks API (zero trust).
 Steps:
-1. Open the Terminal Window in VSCode. Enter (copy output to a text file): [^2]
+
+Open the Terminal Window in VSCode. Enter:
+
 ```bash 
 echo "Create The Service Principal - DO NOT DELETE OUTPUT"
 az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Contributor --scopes /subscriptions/$SubscriptionId --query "{ARM_TENANT_ID:tenant, ARM_CLIENT_ID:appId, ARM_CLIENT_SECRET:password}"
@@ -162,8 +170,14 @@ echo "Save The ClientID From Previos Steps output. "ARM_CLIENT_ID"
 $DBX_SP_Client_ID = "<>"  # REPLACE
 ```
 
-2. Create Github Secrets entitled "ARM_CLIENT_ID", "ARM_CLIENT_SECRET" and "ARM_TENANT_ID". Values are contained within output from step 1. Do not include double quotes for Secret Names and Values. [^3] 
+Create Github Secrets entitled "ARM_CLIENT_ID", "ARM_CLIENT_SECRET" and "ARM_TENANT_ID". Values are contained within output from step 1. Do not include double quotes for Secret Names and Values. [^3] 
 
+
+# Final Snapshot of Github Secrets
+
+Secrets in Github should look exactly like below. The secrets are case sensitive, therefore be very cautious when creating. 
+
+<img width="431" alt="image" src="https://user-images.githubusercontent.com/108273509/188156231-68700283-dc93-4c2d-a739-0eff23b47591.png">
 
 
 # Retrieve Object Id's
@@ -171,21 +185,14 @@ $DBX_SP_Client_ID = "<>"  # REPLACE
 **Why**: The Object IDs will be used when assigning RBAC permissions at a later stage. 
 
 4. In VS Code Terminal retrieve ObjectID of Databricks Service Principal by entering:  
-```bash 
+```ps
 $DBX_SP_ObjID = ( az ad sp show --id $DBX_SP_Client_ID --query "{roleBeneficiaryObjID:id}" )
 ```
 
 4. In VSCode Terminal Retrieve your own ObectID:  
-```bash
+```ps
 $User_ObjID = ( az ad user show --id ciaranh@microsoft.com --query "{roleBeneficiaryObjID:id}" )
 ```
-
-# Final Snapshot of Github Secrets
-
-- Secrets in Github should look exactly like below. The secrets are case sensitive, therefore be very cautious when creating. 
-
-<img width="431" alt="image" src="https://user-images.githubusercontent.com/108273509/188156231-68700283-dc93-4c2d-a739-0eff23b47591.png">
-
 
 ---
 # Update Yaml Pipeline Parameters Files
@@ -199,6 +206,7 @@ $User_ObjID = ( az ad user show --id ciaranh@microsoft.com --query "{roleBenefic
 
 
 We will update the parameters file below, for all four environments by using powershell within VS Code, using the scripts below:
+  
 ```ps
 echo "Update The Variables Below... "
 $Git_Configuration = "Ciaran28"
@@ -396,10 +404,6 @@ Post running the script, we will be able to see the data in the terminal.
 ---
 # Apendix
 
-[^1]: Test
-[^2]: <img width="586" alt="image" src="https://user-images.githubusercontent.com/108273509/186402530-ac8b6962-daf9-4f58-a8a0-b7975d953388.png"> <br>
-[^3]: <img width="388" alt="image" src="https://user-images.githubusercontent.com/108273509/186403865-6cb2023e-2a44-44ef-b744-c56d232e235a.png"> <br>
-[^4]: <img width="690" alt="image" src="https://user-images.githubusercontent.com/108273509/186394172-20896052-6ae2-4063-9179-1950f5b93b3d.png"> <br>
-[^5]: <img width="566" alt="image" src="https://user-images.githubusercontent.com/108273509/186401411-37504ae5-1e43-4317-8b11-d14add6d6924.png"> <br>
+
 [^6]: https://microsofteur.sharepoint.com/teams/MCSMLAISolutionAccelerators/SitePages/Contribution-Guide--How-can-I-contribute-my-work-.aspx?xsdata=MDV8MDF8fDdiODIxYzQxNjQ5NDRlMDQzNWZkMDhkYTc1NmIwMjJlfDcyZjk4OGJmODZmMTQxYWY5MWFiMmQ3Y2QwMTFkYjQ3fDB8MHw2Mzc5NTEzOTk2ODQ4Nzk4Njl8R29vZHxWR1ZoYlhOVFpXTjFjbWwwZVZObGNuWnBZMlY4ZXlKV0lqb2lNQzR3TGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTENKQlRpSTZJazkwYUdWeUlpd2lWMVFpT2pFeGZRPT18MXxNVGs2YldWbGRHbHVaMTlPZWxWNlQwUkpNbGw2VVhST01rVjVXbE13TUZscWFHeE1WMGw0VGxSbmRGcFVWbTFOUkUxNFRtMUpOVTFVVVhsQWRHaHlaV0ZrTG5ZeXx8&sdata=QVcvTGVXVWlUelZ3R2p6MS9BTTVHT0JTWWFDYXBFZW9MMDRuZ0RWYTUxRT0%3D&ovuser=72f988bf-86f1-41af-91ab-2d7cd011db47%2Cciaranh%40microsoft.com&OR=Teams-HL&CT=1660511292416&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiIyNy8yMjA3MzEwMTAwNSIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D#sst-flow
 [^7]: https://github.com/azure/login#configure-a-service-principal-with-a-secret
