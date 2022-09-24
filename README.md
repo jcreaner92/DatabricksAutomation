@@ -193,7 +193,7 @@ Secrets in Github should look exactly like below. The secrets are case sensitive
 
 **Why**: The Object IDs will be used when assigning RBAC permissions at a later stage. 
 
-4. In VS Code Terminal retrieve ObjectID of Databricks Service Principal by entering:  
+1. In VS Code Terminal retrieve ObjectID of Databricks Service Principal by entering:  
 ```ps
 $DBX_SP_ObjID=( az ad sp show --id $DBX_SP_Client_ID --query "{roleBeneficiaryObjID:id}" -o tsv )
 ```
@@ -202,11 +202,16 @@ ERROR: If you are on the old Azure CLI, the command above will return null. Inst
 ```ps
 $DBX_SP_ObjID=( az ad sp show --id $DBX_SP_Client_ID --query "{roleBeneficiaryObjID:objectId}" -o tsv )
 ```
+---
 
-
-4. In VSCode Terminal Retrieve your own ObectID:  
+2. In VSCode Terminal Retrieve your own ObectID:  
 ```ps
 $User_ObjID=( az ad user show --id ciaranh@microsoft.com --query "{roleBeneficiaryObjID:id}" -o tsv )
+```
+ERROR: If you are on the old Azure CLI, the command above will return null. Instead use the command below:
+
+```ps
+$User_ObjID=( az ad user show --id ciaranh@microsoft.com --query "{roleBeneficiaryObjID:objectId}" -o tsv )
 ```
 
 ---
@@ -216,7 +221,7 @@ $User_ObjID=( az ad user show --id ciaranh@microsoft.com --query "{roleBeneficia
 - Parameters files can be found at: /.github/workflows/Pipeline_Param/<environment-file-name>
 
 
-We will update the parameters file below, for all four environments, by using powershell within VS Code, using the scripts below:
+We will update the parameters files ( Development.json, UAT.json, PreProduction.json, Production.json). Enter script below into VS Code Powershell Terminal to update files automatically.
   
 ```ps
 echo "Enter Your Git Username... "
