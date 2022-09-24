@@ -112,7 +112,8 @@ The Branching Strategy is configured automatically. It follows a Github Flow par
 <summary>Click Dropdown... </summary>
 <br>
 
-- In your Github account create a new Repository "DatabricksAutomation"
+- TO DO: See if Forking can replace this. 
+- In your Github account create a new Repository "DatabricksAutomation". For this demo make it Public.
 - Click "Import Code"
 
 <img width="904" alt="image" src="https://user-images.githubusercontent.com/108273509/188488093-78b60917-ec8d-4cf4-b59d-5283c9ef2ce9.png">
