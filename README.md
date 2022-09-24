@@ -93,13 +93,13 @@ In a nutshell, Continuous **Development** is a partly manual process where devel
 <details open>
 <summary>Click Dropdown... </summary>
 <br>
-It is hard to talk about Continuous Deployment without addressing the manner in which that Deployment should look... for example... what branching strategy will be adopted?
-
+It is hard to talk about Continuous Deployment without addressing the manner in which that Deployment should look... for example... what branching strategy will be adopted? <br>
+<br>
 The Branching Strategy is configured automatically. It follows a Github Flow paradigm to promote rapid Continuous Integration, with some nuances. (see the link within the footnote which contains the SST Git Flow written by Willie Ahlers for the Data Science Toolkit - This provides a narrative explaining the numbers below) [^6] 
 
 <img width="805" alt="image" src="https://user-images.githubusercontent.com/108273509/186166011-527144d5-ebc1-4869-a0a6-83c5538b4521.png">
 
--   Feature Branch merged to Main Branch: Resource deployment to development environment 
+-   Feature Branch merged to Main Branch: Resource deployment to Development environment 
 -   Merge Request from Main Branch To Release Branch: Deploy to UAT environment
 -   Merge Request Approval from Main Branch to Release Branch: Deploy to PreProduction environment
 -   Tag Release Branch with Stable Version: Deploy to Production environment 
@@ -152,7 +152,8 @@ Ensure that the Service Principal names are unique within your Tenant. If not un
 
 Create Github Secret titled "AZURE_CREDENTIALS" using the output generated from the previous command.
 
-<img width="406" alt="image" src="https://user-images.githubusercontent.com/108273509/192108307-dac1ea22-d239-41f9-9a6c-d9a94772cb1a.png">
+<img width="420" alt="image" src="https://user-images.githubusercontent.com/108273509/192110733-90975739-6f2d-46f3-8fe8-45cb0cf60b20.png">
+
 
 
 ---
