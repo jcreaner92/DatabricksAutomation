@@ -169,8 +169,7 @@ az ad sp create-for-rbac -n InsertName --role Contributor --scopes /subscription
 
 ```ps
 echo "Save The "ARM_CLIENT_ID" From Previous Steps Output:
-
-$DBX_SP_Client_ID = "<>" 
+$DBX_SP_Client_ID = "<>"
 ```
 
 Create Github Secrets entitled "ARM_CLIENT_ID", "ARM_CLIENT_SECRET" and "ARM_TENANT_ID". Values are contained within output from step 1. Do not include double quotes for Secret Names and Values. [^3] 
