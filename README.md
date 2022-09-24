@@ -141,10 +141,10 @@ $SubscriptionId = " "
 ```
 
 ```ps
-echo "Create The Service Principal - Provide Unique Name: Suggestions - CICD_MainSP_<UniqSuffix> "
+echo "Create The Service Principal - Provide Unique Name: Suggestions - CICD_MainSP_UniqSuffix"
 echo "WARNING: DO NOT DELETE OUTPUT"
 
-az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Owner --scopes /subscriptions/$SubscriptionId --sdk-auth
+az ad sp create-for-rbac -n  "InsertName" --role Owner --scopes /subscriptions/$SubscriptionId --sdk-auth
 ```
 
 Ensure that the Service Principal names are unique within your Tenant. If not unique, you may see the error "Insufficient privileges to complete the operation"
@@ -160,14 +160,17 @@ Steps:
 
 Open the Terminal Window in VSCode. Enter:
 
-```bash 
-echo "Create The Service Principal - DO NOT DELETE OUTPUT"
-az ad sp create-for-rbac -n <InsertNameForServicePrincipal> --role Contributor --scopes /subscriptions/$SubscriptionId --query "{ARM_TENANT_ID:tenant, ARM_CLIENT_ID:appId, ARM_CLIENT_SECRET:password}"
+```ps
+echo "Create The Service Principal - Provide Unique Name: Suggestions - CICD_DBXSP_UniqSuffix"
+echo "WARNING: DO NOT DELETE OUTPUT"
+
+az ad sp create-for-rbac -n InsertName --role Contributor --scopes /subscriptions/$SubscriptionId --query "{ARM_TENANT_ID:tenant, ARM_CLIENT_ID:appId, ARM_CLIENT_SECRET:password}"
 ```
 
-```bash
-echo "Save The ClientID From Previos Steps output. "ARM_CLIENT_ID"
-$DBX_SP_Client_ID = "<>"  # REPLACE
+```ps
+echo "Save The "ARM_CLIENT_ID" From Previous Steps Output:
+
+$DBX_SP_Client_ID = "<>" 
 ```
 
 Create Github Secrets entitled "ARM_CLIENT_ID", "ARM_CLIENT_SECRET" and "ARM_TENANT_ID". Values are contained within output from step 1. Do not include double quotes for Secret Names and Values. [^3] 
