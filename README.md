@@ -201,18 +201,18 @@ $User_ObjID = ( az ad user show --id ciaranh@microsoft.com --query "{roleBenefic
 # Update Yaml Pipeline Parameters Files
 
 - The Parameters file can be thought of as a quasi ARM Template for Databricks
-  - Important: Databricks API is not native to ARM and thus BICEP. This is a distinct disadvantage relative to Terraform which allows us to configure Databricks Workspaces and for example, Clusters, in the same place.
-- Now to update the Parameters files with the amendments below. Do it for each environment within _VS Code_ . 
 - Parameters files can be found at: /.github/workflows/Pipeline_Param/<environment-file-name>
-- The JSON objects are fed to their respective Bash Script, in which the Databricks/API is invoked using a For-Loop. Therefore, the JSON parameters file is flexible, allowing us to add and remove objects at will. 
-- Important: When assigning RBACs to Users, it would be easier to use alias' instead of objectIDs, for example ciaranh@microsoft.com. This requires Graph API permissions, which only a Global Admin can assign.
 
 
-We will update the parameters file below, for all four environments by using powershell within VS Code, using the scripts below:
+We will update the parameters file below, for all four environments, by using powershell within VS Code, using the scripts below:
   
 ```ps
-echo "Update The Variables Below... "
+echo "Enter Your Git Username... "
 $Git_Configuration = "Ciaran28"
+```
+  
+  ```ps
+echo "Enter Your Git Repo Url... "
 $Repo_ConfigurationURL = "https://github.com/ciaran28/DatabricksAutomation"
 ```
   
