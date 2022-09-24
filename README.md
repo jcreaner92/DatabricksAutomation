@@ -168,7 +168,7 @@ az ad sp create-for-rbac -n InsertName --role Contributor --scopes /subscription
 ```
 
 ```ps
-echo "Save The "ARM_CLIENT_ID" From Previous Steps Output:
+echo "Save The "ARM_CLIENT_ID" From Previous Steps Output:"
 $DBX_SP_Client_ID = "<>"
 ```
 
