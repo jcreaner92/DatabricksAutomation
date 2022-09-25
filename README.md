@@ -30,7 +30,7 @@ This Repository contains an Azure Databricks Continuous Deployment _and_ Continu
 
 ---
 
-Azure Databricks is a powerfull technology, used by Data Engineers and Scientists ubiquitously. However, operationalizing it within a fully automated Continuous Integration and Deployment setup may prove challenging. 
+Azure Databricks is a powerful technology, used by Data Engineers and Scientists ubiquitously. However, operationalizing it within a fully automated Continuous Integration and Deployment setup may prove challenging. 
 
 The net effect is a disproportionate amount of the Data Scientist/Engineers time contemplating DevOps matters. This Repositories guiding vision is to automate as much of the infrastructure as possible.
 
@@ -57,7 +57,7 @@ The net effect is a disproportionate amount of the Data Scientist/Engineers time
   - PreProduction
   - Production
 - Full CI-CD between environments.
-- Infrastrusture as Code for interacting with Databricks API and also CLI
+- Infrastructure as Code for interacting with Databricks API and also CLI
 - Logging Framework using the [Opensensus Azure Monitor Exporters](https://github.com/census-instrumentation/opencensus-python/tree/master/contrib/opencensus-ext-azure)
 - Support for Databricks Development from VS Code IDE using the [Databricks Connect](https://docs.microsoft.com/en-us/azure/databricks/dev-tools/databricks-connect#visual-studio-code) feature.
 - Azure Service Principal Authentication
@@ -129,7 +129,7 @@ The Branching Strategy is configured automatically. It follows a Github Flow par
 
 # Create Main Service Principal
 
-**Why**: You will need to assign RBAC permissions to Azure Resources created on the fly. See JSON document "RBAC_Assignment" secion.
+**Why**: You will need to assign RBAC permissions to Azure Resources created on the fly. See JSON document "RBAC_Assignment" section.
 
 Steps:
 Open the Terminal Window in VSCode. Enter:
@@ -270,7 +270,7 @@ Foreach($file in $files)
 
 
 - Git add, commit and then push to the remote repo from your local VS Code
-- In Github you can manually run the pipeline to deploy the evironments to Azure using:
+- In Github you can manually run the pipeline to deploy the environments to Azure using:
   - .github\workflows\1-DBX-Manual-Full-Env-Deploy.yml
 
 <img width="1172" alt="image" src="https://user-images.githubusercontent.com/108273509/186510528-29448e4d-1a0e-41b9-a37f-0cd89d226d57.png">
