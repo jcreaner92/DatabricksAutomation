@@ -246,9 +246,7 @@ Foreach($file in $files)
 
     $JsonData.RBAC_Assignments | % {if($_.Description -eq 'Databricks SPN'){$_.roleBeneficiaryObjID=$DBX_SP_ObjID}}
 
-    $JsonData.update | % {
-        $JsonData.SubscriptionId = $SubscriptionId                                                                                 
-    }
+    $JsonData.update | % {$JsonData.SubscriptionId = $SubscriptionId}
 
     foreach ($Obj in $JsonData.Git_Configuration)
     {
@@ -259,8 +257,6 @@ Foreach($file in $files)
     {
         ($Obj.url = $Repo_ConfigurationURL )
     }
-
-    #echo $JsonData
 
     $JsonData | ConvertTo-Json -Depth 4  | set-content .github\workflows\Pipeline_Param\$file -NoNewline
 
