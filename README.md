@@ -107,22 +107,13 @@ The Branching Strategy is configured automatically. It follows a Github Flow par
 
 ---
 
-# Clone Repository
-<details close>
+# Fork Repository
+<details open>
 <summary>Click Dropdown... </summary>
 <br>
-
-- TO DO: See if Forking can replace this. 
-- In your Github account create a new Repository "DatabricksAutomation". For this demo make it Public.
-- Click "Import Code"
-
-<img width="904" alt="image" src="https://user-images.githubusercontent.com/108273509/188488093-78b60917-ec8d-4cf4-b59d-5283c9ef2ce9.png">
-
-- Now import the code from this Repository "ciaran28/DatabricksAutomation"
-
-<img width="523" alt="image" src="https://user-images.githubusercontent.com/108273509/188488372-5970bd86-864f-42d4-9761-37aedd4ab282.png">
-
-- Within your VS Code , "View" --> "Command Pallette" --> "Git: Clone" --> Select the Repo you have just created 
+  
+- Fork this repository, ensuring the project name is DatabricksAutomation
+- Within your VS Code , "View" --> "Command Pallette" --> "Git: Clone" --> Select <yourUserName>/DatabricksAutoamtion
 </details>
 
 ---
