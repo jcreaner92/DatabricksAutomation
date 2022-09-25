@@ -13,7 +13,7 @@
 - [Details of The Accelerator](#Details-of-The-Accelerator)
 - [Databricks as Infrastructure](#Databricks-as-Infrastructure)
 - [Continuous Deployment + Branching Strategy](#Continuous-Deployment-+-Branching-Strategy)
-- [Fork Repository](Fork-Repository)
+- [Fork Repository](#Fork-Repository)
 - [Create Main Service Principal](#Create-Main-Service-Principal)
 - [Create Databricks Service Principal](#Create-Databricks-Service-Principal)
 - [Final Snapshot of Github Secrets](#Final-Snapshot-of-Github-Secrets)
