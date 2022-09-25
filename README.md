@@ -86,7 +86,7 @@ The net effect is a disproportionate amount of the Data Scientist/Engineers time
 <br>
 There are many ways that a User may create Databricks Jobs, Notebooks, Clusters, Secret Scopes etc. <br>
 <br>
-For example, they may interact with the Databricks API/CLI from:
+For example, they may interact with the Databricks API/CLI from: <br>
 <br>
 1. Their local VS Code <br>
 2. Within Databricks UI; or <br>
