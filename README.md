@@ -8,7 +8,7 @@
 - [Details of The Accelerator](#Details-of-The-Accelerator)
 - [Databricks as Infrastructure](#Databricks-as-Infrastructure)
 - [Continuous Deployment + Branching Strategy](#Continuous-Deployment-+-Branching-Strategy)
-- [Clone Repository](#Clone-Repository)
+- [Fork Repository](Fork-Repository)
 - [Create Main Service Principal](#Create-Main-Service-Principal)
 - [Create Databricks Service Principal](#Create-Databricks-Service-Principal)
 - [Final Snapshot of Github Secrets](#Final-Snapshot-of-Github-Secrets)
@@ -113,6 +113,7 @@ The Branching Strategy is configured automatically. It follows a Github Flow par
 <br>
   
 - Fork this repository, ensuring the project name is DatabricksAutomation
+- In your Forked Repo, click on 'Actions' and then 'Enable'
 - Within your VS Code , "View" --> "Command Pallette" --> "Git: Clone" --> Select <yourUserName>/DatabricksAutoamtion
 </details>
 
