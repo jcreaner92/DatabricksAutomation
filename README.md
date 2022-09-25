@@ -1,5 +1,6 @@
 ![Banner](docs/images/MLOps_for_databricks_Solution_Acclerator_logo.JPG)
-
+---
+---
  <br>
  <br>
  
@@ -23,22 +24,24 @@
 - [Run Machine Learning Scripts](#Run-Machine-Learning-Scripts)
 
 ---
+---
 
 # About This Repository
 
 This Repository contains an Azure Databricks Continuous Deployment _and_ Continuous Development Framework for delivering Data Engineering/Machine Learning projects based on the below Azure Technologies:
 
----
+
 
 | Azure Databricks | Azure Log Analytics | Azure Monitor Service  | Azure Key Vault        |
 | ---------------- |:-------------------:| ----------------------:| ----------------------:|
 
----
+
 
 Azure Databricks is a powerful technology, used by Data Engineers and Scientists ubiquitously. However, operationalizing it within a fully automated Continuous Integration and Deployment setup may prove challenging. 
 
 The net effect is a disproportionate amount of the Data Scientist/Engineers time contemplating DevOps matters. This Repositories guiding vision is to automate as much of the infrastructure as possible.
 
+---
 ---
 
 # Prerequisites
@@ -53,6 +56,9 @@ The net effect is a disproportionate amount of the Data Scientist/Engineers time
 - Azure CLI Installed (This Accelerator is tested on version 2.39)
 
 </details>
+
+---
+---
 
 # Details of The Accelerator
 
@@ -70,6 +76,7 @@ The net effect is a disproportionate amount of the Data Scientist/Engineers time
 - Examples within Development Framework using the Python SDK for Databricks
 - Docker Environment in VS Code (Section 2)
 
+---
 ---
 
 # Databricks as Infrastructure
@@ -93,6 +100,7 @@ In a nutshell, Continuous **Development** is a partly manual process where devel
 </details>
 
 ---
+---
 
  # Continuous Deployment + Branching Strategy
 
@@ -109,7 +117,6 @@ The Branching Strategy is configured automatically. It follows a Github Flow par
 
 
 ---
-
 ---
 
 # Fork Repository
@@ -122,6 +129,7 @@ The Branching Strategy is configured automatically. It follows a Github Flow par
 - Within your VS Code , "View" --> "Command Pallette" --> "Git: Clone" --> Select <yourUserName>/DatabricksAutoamtion
 </details>
 
+---
 ---
 
 # Create Main Service Principal
@@ -145,12 +153,13 @@ az ad sp create-for-rbac -n  "InsertName" --role Owner --scopes /subscriptions/$
 
 Ensure that the Service Principal names are unique within your Tenant. If not unique, you may see the error "Insufficient privileges to complete the operation"
 
+# Secrets
 Create Github Secret titled "AZURE_CREDENTIALS" using the output generated from the previous command.
 
 <img width="420" alt="image" src="https://user-images.githubusercontent.com/108273509/192110733-90975739-6f2d-46f3-8fe8-45cb0cf60b20.png">
 
 
-
+---
 ---
 
 # Create Databricks Service Principal
@@ -172,10 +181,12 @@ echo "Save The ARM_CLIENT_ID From Previous Steps Output:"
 
 $DBX_SP_Client_ID = "<>"
 ```
-
-Create Github Secrets entitled "ARM_CLIENT_ID", "ARM_CLIENT_SECRET" and "ARM_TENANT_ID".  
+# Secrets
+Create Github Secrets entitled "ARM_CLIENT_ID", "ARM_CLIENT_SECRET" and "ARM_TENANT_ID"  
 Do not include double quotes for Secret Names and Values.
 
+---
+---
 
 # Final Snapshot of Github Secrets
 
@@ -183,7 +194,9 @@ Secrets in Github should look exactly like below. The secrets are case sensitive
 
 <img width="431" alt="image" src="https://user-images.githubusercontent.com/108273509/188156231-68700283-dc93-4c2d-a739-0eff23b47591.png">
 
-
+---
+---
+ 
 # Retrieve Object Ids
 
 **Why**: The Object IDs will be used when assigning RBAC permissions at a later stage. 
@@ -208,8 +221,9 @@ ERROR: If you are on the old Azure CLI, the command above will return null. Inst
 ```ps
 $User_ObjID=( az ad user show --id ciaranh@microsoft.com --query "{roleBeneficiaryObjID:objectId}" -o tsv )
 ```
-
 ---
+---
+ 
 # Update Yaml Pipeline Parameters Files
 
 - The Parameters file can be thought of as a quasi ARM Template for Databricks
@@ -259,7 +273,9 @@ Foreach($file in $files)
 
 }
 ```
-
+---
+---
+ 
 # Deploy The Azure Environments 
 
 - Ensure that all bash '.sh' files within '.github\workflows\Utilities' have not defaulted to 'CRLF' EOL. Instead change this to LF. See the bottom right of VS Code.
@@ -280,16 +296,16 @@ Foreach($file in $files)
 
 <img width="810" alt="image" src="https://user-images.githubusercontent.com/108273509/188155303-cfe07a79-0a9d-4a4d-a40a-dea6104b40f1.png">
 
-
-
 ---
+---
+
 # Run Machine Learning Scripts
 
 <img width="752" alt="image" src="https://user-images.githubusercontent.com/108273509/186661417-403d58db-147e-4dd5-966a-868876fb2ee0.png">
 
 ---
-# Section 2: Interact With Databricks From Local VS Code Using Databricks Connect + Docker Image
 ---
+# Section 2: Interact With Databricks From Local VS Code Using Databricks Connect + Docker Image
 
 In the previous section, we interacted with Databricks API from the DevOps Agent.
 
