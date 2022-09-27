@@ -22,7 +22,7 @@
 - [Details of The Solution Accelerator](##Details-of-The-Solution-Accelerator)
 - [Databricks as Infrastructure](##Databricks-as-Infrastructure)
 - [Continuous Deployment + Branching Strategy](##Continuous-Deployment-+-Branching-Strategy)
-- [Fork Repository](##Fork-Repository)
+- [Create Repository](##Create-Repository)
 - [Create Main Service Principal](##Create-Main-Service-Principal)
 - [Create Databricks Service Principal](##Create-Databricks-Service-Principal)
 - [Final Snapshot of Github Secrets](##Final-Snapshot-of-Github-Secrets)
@@ -125,7 +125,7 @@ The Branching Strategy I have chosen is configured automatically as part of the 
 ---
 ---
 
-## Fork Repository
+## Create Repository
 <details open>
 <summary>Click Dropdown... </summary>
 <br>
