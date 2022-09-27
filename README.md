@@ -17,7 +17,7 @@
 ---
 
 ## Table of Contents
-- [About This Repository](##About-This-Repository)
+- [About This Repository](## About-This-Repository)
 - [Prerequisites](##Prerequisites)
 - [Details of The Solution Accelerator](##Details-of-The-Solution-Accelerator)
 - [Databricks as Infrastructure](##Databricks-as-Infrastructure)
