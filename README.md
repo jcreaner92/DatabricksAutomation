@@ -101,7 +101,7 @@ For example, they may interact with the Databricks API/CLI by using: <br>
 3. a YAML Pipeline deployment on a DevOps Agent (e.g. Github Actions or Azure DevOps etc). <br>
 <br>
  
-The programmatic way in which the first teo scenarios allow us to interact with the Databricks API is akin to "Continuous **Development**", as opposed to "Continuous **Deployment**". The former is strong on flexibility, however, it is somewhat weak on governance, accountability and reproducibility. <br>
+The programmatic way in which the first two scenarios allow us to interact with the Databricks API is akin to "Continuous **Development**", as opposed to "Continuous **Deployment**". The former is strong on flexibility, however, it is somewhat weak on governance, accountability and reproducibility. <br>
 
 In a nutshell, Continuous **Development** _is a partly manual process where developers can deploy any changes to customers by simply clicking a button, while continuous **Deployment** emphasizes automating the entire process_.
 
