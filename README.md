@@ -177,14 +177,15 @@ Open the Terminal Window in VSCode. Enter:
 
 ```ps
 echo "Create The Service Principal - Provide Unique Name: Suggestions - CICD_DBXSP_UniqSuffix"
+ 
 echo "WARNING: DO NOT DELETE OUTPUT"
-
+ 
 az ad sp create-for-rbac -n InsertName --role Contributor --scopes /subscriptions/$SubscriptionId --query "{ARM_TENANT_ID:tenant, ARM_CLIENT_ID:appId, ARM_CLIENT_SECRET:password}"
 ```
 
 ```ps
-echo "Save The ARM_CLIENT_ID From Previous Steps Output:"
-
+echo "Save The ARM_CLIENT_ID From Previous Steps Output"
+ 
 $DBX_SP_Client_ID = "<>"
 ```
 ## Secrets
