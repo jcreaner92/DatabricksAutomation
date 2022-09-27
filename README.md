@@ -8,7 +8,7 @@
 
 ---
  
- ## CI-CD Pathway
+ ## CI/CD Pathway Diagram
  
 <p align="center">
   <img width="821" alt="image" src="https://user-images.githubusercontent.com/108273509/191785696-e8f52385-38b6-42b1-9e85-a3f6bf38d54b.png">
