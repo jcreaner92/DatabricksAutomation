@@ -281,8 +281,8 @@ Foreach($file in $files)
 - Ensure that all bash '.sh' files within '.github\workflows\Utilities' have not defaulted to 'CRLF' EOL. Instead change this to LF. See the bottom right of VS Code.
   <img width="259" alt="image" src="https://user-images.githubusercontent.com/108273509/188154937-32c97d98-5659-4224-be5c-94a97e090e0f.png">
 
+- Git Push all of your local changes in VS Code to the remote Github Repo.
 
-- Git add, commit and then push to the remote repo from your local VS Code
 - In Github you can manually run the pipeline to deploy the environments to Azure using:
   - .github\workflows\1-DBX-Manual-Full-Env-Deploy.yml
 
