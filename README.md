@@ -2,31 +2,39 @@
 ---
 ---
  <br>
- <br>
+
+ 
+ # Section 1: DevOps Agent Deployment of CI-CD Databricks Environments
+
+---
+ 
+ ## CI-CD Pathway
  
 <p align="center">
   <img width="821" alt="image" src="https://user-images.githubusercontent.com/108273509/191785696-e8f52385-38b6-42b1-9e85-a3f6bf38d54b.png">
 </p>
 
+---
+
 ## Table of Contents
-- [About This Repository](#About-This-Repository)
-- [Prerequisites](#Prerequisites)
-- [Details of The Accelerator](#Details-of-The-Accelerator)
-- [Databricks as Infrastructure](#Databricks-as-Infrastructure)
-- [Continuous Deployment + Branching Strategy](#Continuous-Deployment-+-Branching-Strategy)
-- [Fork Repository](#Fork-Repository)
-- [Create Main Service Principal](#Create-Main-Service-Principal)
-- [Create Databricks Service Principal](#Create-Databricks-Service-Principal)
-- [Final Snapshot of Github Secrets](#Final-Snapshot-of-Github-Secrets)
-- [Retrieve Object Id's](#Retrieve-Object-Ids)
-- [Update Yaml Pipeline Parameters Files](#Update-Yaml-Pipeline-Parameters-Files)
-- [Deploy The Azure Environments](#Deploy-The-Azure-Environments)
-- [Run Machine Learning Scripts](#Run-Machine-Learning-Scripts)
+- [About This Repository](##About-This-Repository)
+- [Prerequisites](##Prerequisites)
+- [Details of The Accelerator](##Details-of-The-Accelerator)
+- [Databricks as Infrastructure](##Databricks-as-Infrastructure)
+- [Continuous Deployment + Branching Strategy](##Continuous-Deployment-+-Branching-Strategy)
+- [Fork Repository](##Fork-Repository)
+- [Create Main Service Principal](##Create-Main-Service-Principal)
+- [Create Databricks Service Principal](##Create-Databricks-Service-Principal)
+- [Final Snapshot of Github Secrets](##Final-Snapshot-of-Github-Secrets)
+- [Retrieve Object Id's](##Retrieve-Object-Ids)
+- [Update Yaml Pipeline Parameters Files](##Update-Yaml-Pipeline-Parameters-Files)
+- [Deploy The Azure Environments](##Deploy-The-Azure-Environments)
+- [Run Machine Learning Scripts](##Run-Machine-Learning-Scripts)
 
 ---
 ---
 
-# About This Repository
+## About This Repository
 
 This Repository contains an Azure Databricks Continuous Deployment _and_ Continuous Development Framework for delivering Data Engineering/Machine Learning projects based on the below Azure Technologies:
 
@@ -37,30 +45,30 @@ This Repository contains an Azure Databricks Continuous Deployment _and_ Continu
 
 
 
-Azure Databricks is a powerful technology, used by Data Engineers and Scientists ubiquitously. However, operationalizing it within a fully automated Continuous Integration and Deployment setup may prove challenging. 
+Azure Databricks is a powerful technology, used by Data Engineers and Scientists ubiquitously. However, operationalizing it within a Continuous Integration and Deployment setup that is fully automated, may prove challenging. 
 
-The net effect is a disproportionate amount of the Data Scientist/Engineers time contemplating DevOps matters. This Repositories guiding vision is to automate as much of the infrastructure as possible.
+The net effect is a disproportionate amount of the Data Scientist/Engineers time contemplating DevOps matters. This Repository's guiding vision is to automate as much of the infrastructure as possible.
 
 ---
 ---
 
-# Prerequisites
+## Prerequisites
 <details open>
 <summary>Click Dropdown... </summary>
 <br>
   
 - Github Account
-- Access to an Azure Subscription
-- VS Code installed.
-- Docker Desktop Installed (Instructions below)
+- Microsoft Azure Subscription
+- VS Code
 - Azure CLI Installed (This Accelerator is tested on version 2.39)
+- Docker Desktop Installed (not required for Section 1)
 
 </details>
 
 ---
 ---
 
-# Details of The Accelerator
+## Details of The Accelerator
 
 - Creation of four environments:
   - Development 
@@ -79,7 +87,7 @@ The net effect is a disproportionate amount of the Data Scientist/Engineers time
 ---
 ---
 
-# Databricks as Infrastructure
+## Databricks as Infrastructure
 <details open>
 <summary>Click Dropdown... </summary>
 
@@ -102,7 +110,7 @@ In a nutshell, Continuous **Development** is a partly manual process where devel
 ---
 ---
 
- # Continuous Deployment + Branching Strategy
+ ## Continuous Deployment + Branching Strategy
 
 It is hard to talk about Continuous Deployment without addressing the manner in which that Deployment should look... for example... what branching strategy will be adopted? <br> 
 <br>
@@ -119,7 +127,7 @@ The Branching Strategy is configured automatically. It follows a Github Flow par
 ---
 ---
 
-# Fork Repository
+## Fork Repository
 <details open>
 <summary>Click Dropdown... </summary>
 <br>
@@ -132,7 +140,7 @@ The Branching Strategy is configured automatically. It follows a Github Flow par
 ---
 ---
 
-# Create Main Service Principal
+## Create Main Service Principal
 
 **Why**: You will need to assign RBAC permissions to Azure Resources created on the fly. See JSON document "RBAC_Assignment" section.
 
@@ -153,7 +161,7 @@ az ad sp create-for-rbac -n  "InsertName" --role Owner --scopes /subscriptions/$
 
 Ensure that the Service Principal names are unique within your Tenant. If not unique, you may see the error "Insufficient privileges to complete the operation"
 
-# Secrets
+## Secrets
 Create Github Secret titled "AZURE_CREDENTIALS" using the output generated from the previous command.
 
 <img width="420" alt="image" src="https://user-images.githubusercontent.com/108273509/192110733-90975739-6f2d-46f3-8fe8-45cb0cf60b20.png">
@@ -162,7 +170,7 @@ Create Github Secret titled "AZURE_CREDENTIALS" using the output generated from 
 ---
 ---
 
-# Create Databricks Service Principal
+## Create Databricks Service Principal
 
 **Why**: For those who only need permissions to create resources and interact with the Databricks API (zero trust).
 Steps:
@@ -181,14 +189,14 @@ echo "Save The ARM_CLIENT_ID From Previous Steps Output:"
 
 $DBX_SP_Client_ID = "<>"
 ```
-# Secrets
+## Secrets
 Create Github Secrets entitled "ARM_CLIENT_ID", "ARM_CLIENT_SECRET" and "ARM_TENANT_ID"  
 Do not include double quotes for Secret Names and Values.
 
 ---
 ---
 
-# Final Snapshot of Github Secrets
+## Final Snapshot of Github Secrets
 
 Secrets in Github should look exactly like below. The secrets are case sensitive, therefore be very cautious when creating. 
 
@@ -197,7 +205,7 @@ Secrets in Github should look exactly like below. The secrets are case sensitive
 ---
 ---
  
-# Retrieve Object Ids
+## Retrieve Object Ids
 
 **Why**: The Object IDs will be used when assigning RBAC permissions at a later stage. 
 
@@ -224,7 +232,7 @@ $User_ObjID=( az ad user show --id ciaranh@microsoft.com --query "{roleBeneficia
 ---
 ---
  
-# Update Yaml Pipeline Parameters Files
+## Update Yaml Pipeline Parameters Files
 
 - The Parameters file can be thought of as a quasi ARM Template for Databricks
 - Parameters files can be found at: /.github/workflows/Pipeline_Param/<environment-file-name>
@@ -276,7 +284,7 @@ Foreach($file in $files)
 ---
 ---
  
-# Deploy The Azure Environments 
+## Deploy The Azure Environments 
 
 - Ensure that all bash '.sh' files within '.github\workflows\Utilities' have not defaulted to 'CRLF' EOL. Instead change this to LF. See the bottom right of VS Code.
   <img width="259" alt="image" src="https://user-images.githubusercontent.com/108273509/188154937-32c97d98-5659-4224-be5c-94a97e090e0f.png">
@@ -299,7 +307,7 @@ Foreach($file in $files)
 ---
 ---
 
-# Run Machine Learning Scripts
+## Run Machine Learning Scripts
 
 <img width="752" alt="image" src="https://user-images.githubusercontent.com/108273509/186661417-403d58db-147e-4dd5-966a-868876fb2ee0.png">
 
@@ -313,7 +321,7 @@ But what if we wish to interact with the Databricks environment from our local V
 
 Now... enter Docker. Why are we using this? Configuring the environment set up for Databricks Connect on a Windows machine is a tortuous process, designed to break the will of even the most talented programmer. Instead, we will use a Docker Image which builds a containerized Linux environment within the VS Code Workspace, dealing with all of the environment variables and path dependencies out of the box. 
 
-# Steps
+## Steps
 
 ![map01](docs/images/map01.png)
 1. Clone the Repository : https://github.com/microsoft/dstoolkit-ml-ops-for-databricks/pulls
