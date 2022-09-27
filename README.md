@@ -4,7 +4,7 @@
  <br>
 
  
- # Section 1: DevOps Agent Deployment of CI-CD Databricks Environments
+ # Section 1: DevOps Agent Deployment of CI/CD Databricks Environments
 
 ---
  
@@ -19,7 +19,7 @@
 ## Table of Contents
 - [About This Repository](##About-This-Repository)
 - [Prerequisites](##Prerequisites)
-- [Details of The Accelerator](##Details-of-The-Accelerator)
+- [Details of The Solution Accelerator](##Details-of-The-Solution-Accelerator)
 - [Databricks as Infrastructure](##Databricks-as-Infrastructure)
 - [Continuous Deployment + Branching Strategy](##Continuous-Deployment-+-Branching-Strategy)
 - [Fork Repository](##Fork-Repository)
@@ -68,20 +68,20 @@ The net effect is a disproportionate amount of the Data Scientist/Engineers time
 ---
 ---
 
-## Details of The Accelerator
+## Details of The Solution Accelerator
 
 - Creation of four environments:
   - Development 
-  - UAT
-  - PreProduction
+  - User Acceptance Testing (UAT)
+  - Pre-Production
   - Production
-- Full CI-CD between environments.
-- Infrastructure as Code for interacting with Databricks API and also CLI
-- Logging Framework using the [Opensensus Azure Monitor Exporters](https://github.com/census-instrumentation/opencensus-python/tree/master/contrib/opencensus-ext-azure)
-- Support for Databricks Development from VS Code IDE using the [Databricks Connect](https://docs.microsoft.com/en-us/azure/databricks/dev-tools/databricks-connect#visual-studio-code) feature.
+- Full CI/CD between environments.
+- Infrastructure-as-Code for interacting with Databricks API and also CLI
+- Logging framework using the [Opensensus Azure Monitor Exporters](https://github.com/census-instrumentation/opencensus-python/tree/master/contrib/opencensus-ext-azure)
+- Databricks Continuous Development from VS Code IDE using the [Databricks Connect](https://docs.microsoft.com/en-us/azure/databricks/dev-tools/databricks-connect#visual-studio-code) feature.
 - Azure Service Principal Authentication
 - Azure resource deployment using BICEP
-- Examples within Development Framework using the Python SDK for Databricks
+- Examples given within Development Framework using the Python SDK for Databricks
 - Docker Environment in VS Code (Section 2)
 
 ---
@@ -94,16 +94,16 @@ The net effect is a disproportionate amount of the Data Scientist/Engineers time
 <br>
 There are many ways that a User may create Databricks Jobs, Notebooks, Clusters, Secret Scopes etc. <br>
 <br>
-For example, they may interact with the Databricks API/CLI from: <br>
+For example, they may interact with the Databricks API/CLI by using: <br>
 <br>
-1. Their local VS Code <br>
-2. Within Databricks UI; or <br>
-3. A Yaml Pipeline deployment on a DevOps Agent (Github Actions/Azure DevOps etc.) <br>
+1. VS Code on their local machine, <br>
+2. the Databricks GUI online; or <br>
+3. a YAML Pipeline deployment on a DevOps Agent (e.g. Github Actions or Azure DevOps etc). <br>
 <br>
  
-The programmatic way for which options 1 & 2 allow us to interact with the Databricks API is akin to "Continuous **Development**", as opposed to "Continuous **Deployment**". The former is strong on flexibility, however, it is somewhat weak on governance and reproducibility. <br>
+The programmatic way in which the first teo scenarios allow us to interact with the Databricks API is akin to "Continuous **Development**", as opposed to "Continuous **Deployment**". The former is strong on flexibility, however, it is somewhat weak on governance, accountability and reproducibility. <br>
 
-In a nutshell, Continuous **Development** is a partly manual process where developers can deploy any changes to customers by simply clicking a button, while continuous **Deployment** emphasizes automating the entire process.
+In a nutshell, Continuous **Development** _is a partly manual process where developers can deploy any changes to customers by simply clicking a button, while continuous **Deployment** emphasizes automating the entire process_.
 
 </details>
 
@@ -112,16 +112,14 @@ In a nutshell, Continuous **Development** is a partly manual process where devel
 
  ## Continuous Deployment + Branching Strategy
 
-It is hard to talk about Continuous Deployment without addressing the manner in which that Deployment should look... for example... what branching strategy will be adopted? <br> 
-<br>
-The Branching Strategy is configured automatically. It follows a Github Flow paradigm to promote rapid Continuous Integration, with some nuances. (see footnote 1 which contains the SST Git Flow Article written by Willie Ahlers for the Data Science Toolkit - This provides a narrative explaining the numbers below)[^1]
+The Branching Strategy I have chosen is configured automatically as part of the accelerator. It follows a GitHub Flow paradigm in order to facilitate rapid Continuous Integration, with some nuances. (see Footnote 1 which contains the SST Git Flow Article written by Willie Ahlers for the Data Science Toolkit - This provides a narrative explaining the numbers below)[^1]
 
 <img width="805" alt="image" src="https://user-images.githubusercontent.com/108273509/186166011-527144d5-ebc1-4869-a0a6-83c5538b4521.png">
 
--   Feature Branch merged to Main Branch: Resource deployment to Development environment 
--   Merge Request from Main Branch To Release Branch: Deploy to UAT environment
--   Merge Request Approval from Main Branch to Release Branch: Deploy to PreProduction environment
--   Tag Release Branch with Stable Version: Deploy to Production environment 
+-   Feature Branch merged to Main Branch: resource deployment to Development environment 
+-   Merge Request from Main Branch to Release Branch: deploy to UAT environment
+-   Merge Request Approval from Main Branch to Release Branch: deploy to Pre-Production environment
+-   Tag Release Branch with Stable Version: deploy to Production environment. 
 
 
 ---
