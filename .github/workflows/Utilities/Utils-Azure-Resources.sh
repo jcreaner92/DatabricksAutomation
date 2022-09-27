@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Ensure Carriage Return Is Set To LF For Linux Machines.. 
-
 echo "environment variable: $param_TemplateParamFilePath"
 echo "environment variable: $param_Location"
 echo "environment variable: $param_TemplateFilePath"

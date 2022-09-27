@@ -9,7 +9,6 @@ AZ_KEYVAULT_NAME=$(az keyvault list -g $param_parameters_resourceGroupName_value
 #DATABRICKS_TOKEN=$(az keyvault secret show --name "dbkstoken" --vault-name $AZ_KEYVAULT_NAME --query "value" -o tsv)
 
 
-
 # Creation Of Important Environment Variables For Later Steps.
 echo "Set Environment Variables For Later Stages..."
 

@@ -8,15 +8,12 @@ if [ $Bool_Contains_DBX_Custom_Role_Exists == false ]; then
     cd .github/workflows/RBAC_Role_Definition
     ls
 
-    echo $param_SubscriptionId
     # Note the use of the single quotes around param_SubscriptionId below. This is necessary to esacape the initial single quote, thereby recognising param_SubscriptionID as a variable and not string literal
     updateJson=$(jq -r --arg param_SubscriptionId "$param_SubscriptionId" ' .assignableScopes[0] = "/subscriptions/'$param_SubscriptionId'" ' DBX_Custom_Role.json) && echo -E "${updateJson}" > DBX_Custom_Role.json
     updateJson=$(echo $updateJson | jq -r )
+    
     echo $updateJson
+    
     az role definition create \
         --role-definition "$updateJson"
 fi
-
-#contents="$(jq '.assignableScopes[] = "/subscriptions/4f1bc772-7792-4285-99d9-3463b8d7f994"' DBX_Custom_Role.json)" && echo -E "${contents}" > DBX_Custom_Role.json
-#trial=$(echo $contents | jq -r )
-#az role definition create --role-definition "$trial"

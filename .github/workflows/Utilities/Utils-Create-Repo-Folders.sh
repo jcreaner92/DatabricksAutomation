@@ -1,17 +1,6 @@
-# For Creating Git Config in Parameters file for ADO
-#"personal_access_token": "yhdjjk6kcmmv6zcfowmsh6pmcre3jbstwbk5sarxcwtutmlyu5ha",
-#"git_username": "ciaranh@microsoft.com",
-#"git_provider": "azureDevOpsServices"
-
-echo "Test Application ID"
-# Remove In Time
-echo $ARM_CLIENT_ID
-
-
 echo "Ingest JSON File"
 JSON=$( jq '.' .github/workflows/Pipeline_Param/$environment.json)
 #echo "${JSON}" | jq
-
 
 for row in $(echo "${JSON}" | jq -r '.Git_Configuration[] | @base64'); do
     _jq() {
@@ -38,6 +27,7 @@ for row in $(echo "${JSON}" | jq -r '.Git_Configuration[] | @base64'); do
 
     echo "Git Credentials Response...."
     echo $CREATE_GIT_CREDENTIALS_RESPONSE
+    
 done
 
 echo "User Folders In Databricks Repos Will Be Described Using An Email Address... e.g Ciaranh@Microsoft.com  "
@@ -57,8 +47,8 @@ for row in $(echo "${JSON}" | jq -r '.Repo_Configuration[] | @base64'); do
                     provider: $pr,
                     path: $pa}' )
     
-    echo "JSON -D String "
-    echo $JSON_STRING
+    #echo "JSON -D String "
+    #echo $JSON_STRING
 
     CREATE_REPO_RESPONSE=$(curl -X POST -H "Authorization: Bearer $TOKEN" \
                 -H "X-Databricks-Azure-SP-Management-Token: $MGMT_ACCESS_TOKEN" \

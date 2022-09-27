@@ -12,7 +12,7 @@ sudo apt-get install pandoc
 
 echo "Ingest JSON Environment File"
 JSON=$( jq '.' .github/workflows/Pipeline_Param/$environment.json)
-echo "${JSON}" | jq
+#echo "${JSON}" | jq
 
 
 for row in $(echo "${JSON}" | jq -r '.WheelFiles[] | @base64'); do
@@ -110,12 +110,12 @@ for row in $(echo "${JSON}" | jq -r '.WheelFiles[] | @base64'); do
         done
         echo "Running now..."
 
-
         databricks libraries uninstall --cluster-id "$CLUSTER_ID" --whl dbfs:/FileStore/$CLUSTER_NAME/$wheel_file_name
         databricks libraries install --cluster-id $CLUSTER_ID --whl dbfs:/FileStore/$CLUSTER_NAME/$wheel_file_name
         
         # Make This More Effecient. Restart Clusters Once Only After All DBFS Files Have Been Uploaded. Preferably A Restart All Clusters In 
         # The Workspace Would Do. 
+        
         databricks clusters restart --cluster-id $CLUSTER_ID
     fi
 done
