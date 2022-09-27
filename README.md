@@ -160,7 +160,7 @@ az ad sp create-for-rbac -n  "InsertName" --role Owner --scopes /subscriptions/$
 Ensure that the Service Principal names are unique within your Tenant. If not unique, you may see the error "Insufficient privileges to complete the operation"
 
 ## Secrets
-Create Github Secret titled "AZURE_CREDENTIALS" using the output generated from the previous command.
+Create Github Secret titled **AZURE_CREDENTIALS** using the output generated from the previous command.
 
 <img width="420" alt="image" src="https://user-images.githubusercontent.com/108273509/192110733-90975739-6f2d-46f3-8fe8-45cb0cf60b20.png">
 
@@ -188,7 +188,7 @@ echo "Save The ARM_CLIENT_ID From Previous Steps Output:"
 $DBX_SP_Client_ID = "<>"
 ```
 ## Secrets
-Create Github Secrets entitled "ARM_CLIENT_ID", "ARM_CLIENT_SECRET" and "ARM_TENANT_ID"  
+Create Github Secrets entitled **ARM_CLIENT_ID**, **ARM_CLIENT_SECRET** and **ARM_TENANT_ID**  
 Do not include double quotes for Secret Names and Values.
 
 ---
