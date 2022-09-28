@@ -116,7 +116,7 @@ jobs:
           run:                  bash ./.github/workflows/Utilities/Utils-Create-Repo-Folders.sh
           env:
             environment:        ${{ matrix.environments }}
-            GITHUB_PAT:            ${{ secrets.GITHUB_PAT }}
+            PAT_GITHUB:         ${{ secrets.GITHUB_PAT }}
             ARM_CLIENT_ID:      ${{ secrets.ARM_CLIENT_ID }}
 
 

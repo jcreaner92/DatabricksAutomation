@@ -6,9 +6,9 @@ for row in $(echo "${JSON}" | jq -r '.Git_Configuration[] | @base64'); do
     _jq() {
         echo ${row} | base64 --decode | jq -r ${1}
     }
-    echo $GITHUB_PAT
+    echo $PAT_GITHUB
     JSON_STRING=$( jq -n -c \
-                --arg pat "$GITHUB_PAT" \
+                --arg pat "$PAT_GITHUB" \
                 --arg gu "$(_jq '.git_username')" \
                 --arg gp "$(_jq '.git_provider')"  \
                 --arg br "$(_jq '.branch')"  \
