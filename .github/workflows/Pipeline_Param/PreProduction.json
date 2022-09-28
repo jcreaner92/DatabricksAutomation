@@ -20,7 +20,7 @@
                                                "DBX_Custom_Role_DSToolkit",
                                                "Key Vault Administrator"
                                            ],
-                                 "roleBeneficiaryObjID":  "c0d2ddad-5a92-4df7-93f6-8716e060101e",
+                                 "roleBeneficiaryObjID":  "75e12f37-3582-4c13-a989-5eff9c6b3f45",
                                  "Description":  "Databricks SPN",
                                  "principalType":  "ServicePrincipal"
                              }
@@ -43,7 +43,7 @@
                  ],
     "Git_Configuration":  [
                               {
-                                  "git_username":  "Ciaranhd",
+                                  "git_username":  "Ciaran28",
                                   "git_provider":  "gitHub"
                               }
                           ],
@@ -56,7 +56,7 @@
                    ],
     "Repo_Configuration":  [
                                {
-                                   "url":  "https://github.com/ciaranhd/DatabricksAutomation",
+                                   "url":  "https://github.com/ciaran28/DatabricksAutomation",
                                    "provider":  "gitHub",
                                    "path":  "PreProductionFolder"
                                }
