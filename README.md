@@ -195,6 +195,13 @@ Do not include double quotes for Secret Names and Values.
 ---
 ---
 
+## Create Github Personal Access Token 
+
+- Create Personal Access Token and save it as **GITHUB_PAT_TOKEN" in Github Secrets. 
+
+--
+--
+
 ## Final Snapshot of Github Secrets
 
 Secrets in Github should look exactly like below. The secrets are case sensitive, therefore be very cautious when creating. 
