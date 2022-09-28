@@ -208,7 +208,7 @@ Do not include double quotes for Secret Names and Values.
 
 Secrets in Github should look exactly like below. The secrets are case sensitive, therefore be very cautious when creating. 
 
-<img width="431" alt="image" src="https://user-images.githubusercontent.com/108273509/188156231-68700283-dc93-4c2d-a739-0eff23b47591.png">
+<img width="388" alt="image" src="https://user-images.githubusercontent.com/108273509/192744701-1a83ad50-4d6c-4e70-8124-5c3991fc408e.png">
 
 ---
 ---
