@@ -57,10 +57,10 @@ jobs:
 
 
 # 4.  Deploy Azure Resources    (BICEP) 
-        #- name:                 Deploy DBX CICD Azure Resources
-        #  run:                  bash ./.github/workflows/Utilities/Utils-Azure-Resources.sh
-        #  env:
-        #    environment:        ${{ matrix.environments }}
+        - name:                 Deploy DBX CICD Azure Resources
+          run:                  bash ./.github/workflows/Utilities/Utils-Azure-Resources.sh
+          env:
+            environment:        ${{ matrix.environments }}
 
 
 # 5.  __Order Important__ Asign RBAC Permission
@@ -126,7 +126,7 @@ jobs:
 
 
 # 13. Databricks Wheel File Creation + DBFS/Cluster Upload
-        #- name:                   Create Wheel Files & Upload To DBFS
-        #  run:                    bash ./.github/workflows/Utilities/Utils-Create-Wheels-DBFS-Cluster-Upload.sh
-        #  env:
-        #    environment:          ${{ matrix.environments }}
+        - name:                   Create Wheel Files & Upload To DBFS
+          run:                    bash ./.github/workflows/Utilities/Utils-Create-Wheels-DBFS-Cluster-Upload.sh
+          env:
+            environment:          ${{ matrix.environments }}
