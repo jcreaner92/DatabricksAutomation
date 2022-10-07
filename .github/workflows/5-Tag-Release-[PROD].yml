@@ -3,6 +3,10 @@
 # Pipeline Is Triggered When ANY Branch Is Tagged EXCLUDING Main, Thereby Ensuring Only Release Is Used, 
 # Given That We Never Tag Feature Branches .
 
+# git tag -a v1.0.1 -m "my version 1.0.1"
+# git tag -l
+# git push origin v1.0.1
+
 on:
   push:
     tags:
@@ -71,11 +75,11 @@ jobs:
             environment:        ${{ matrix.environments }}
 
         # Only run if file path !infra AND merging into main, then don't run this!
-        - name:                 Deploy DBX CICD Azure Resources
-          if:                   steps.filter.outputs.workflows != 'true'
-          run:                  bash ./.github/workflows/Utilities/Utils-Azure-Resources.sh
-          env:
-            environment:        ${{ matrix.environments }}
+        #- name:                 Deploy DBX CICD Azure Resources
+        #  if:                   steps.filter.outputs.workflows != 'true'
+        #  run:                  bash ./.github/workflows/Utilities/Utils-Azure-Resources.sh
+        #  env:
+        #    environment:        ${{ matrix.environments }}
 
 
         - name:                 Assign RBAC Permissions
@@ -109,9 +113,6 @@ jobs:
         - name:                 Save Databricks SP Credentials Within Secret Scopes  
           run:                  bash ./.github/workflows/Utilities/Utils-Create-Scope.sh
 
-# 11.  Store Important Environment Variables In Key Vault. They Can Be Accessed Within DBUtils In Databricks via The Databricks Credentials inside the Secret Scope (above)
-        #- name:                 Store Important Environment Variables In Key Vault
-        #  run:                  bash ./.github/workflows/Utilities/Utils-Create-Scope.sh
 
         - name:                 Create DBX Clusters
           if:                   steps.filter.outputs.workflows != 'true'
@@ -135,11 +136,11 @@ jobs:
             echo "${{ github.head_ref }}"
             echo "${{ github.base_ref }}"
 
-        - name:                   Create Wheel Files & Upload To DBFS
-          if:                     steps.filter.outputs.workflows != 'true'
-          run:                    bash ./.github/workflows/Utilities/Utils-Create-Wheels-DBFS-Cluster-Upload.sh
-          env:
-            environment:          ${{ matrix.environments }}
+        #- name:                   Create Wheel Files & Upload To DBFS
+        #  if:                     steps.filter.outputs.workflows != 'true'
+        #  run:                    bash ./.github/workflows/Utilities/Utils-Create-Wheels-DBFS-Cluster-Upload.sh
+        #  env:
+        #    environment:          ${{ matrix.environments }}
 
         # INCLUDE GIT PULL HERE SO THAT THE UAT ENVIRONMENT HAS THE MOST UP TO DATE VERSION OF THE MAIN BRANCH -- 
         - run: |
