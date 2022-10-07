@@ -169,7 +169,7 @@ echo "Create The Service Principal"
 
 echo "WARNING: DO NOT DELETE OUTPUT "
 
-az ad sp create-for-rbac -n MainSP$RandomVariable1 --role Owner --scopes /subscriptions/$SubscriptionId --sdk-auth
+az ad sp create-for-rbac -n MainSP_$RandomVariable1 --role Owner --scopes /subscriptions/$SubscriptionId --sdk-auth
  
 ```
 
@@ -194,7 +194,7 @@ echo "Create The Service Principal"
  
 echo "WARNING: DO NOT DELETE OUTPUT"
  
-$DBX_CREDENTIALS=( az ad sp create-for-rbac -n DatabricksSP$RandomVariable2 --role Contributor --scopes /subscriptions/$SubscriptionId --query "{ARM_TENANT_ID:tenant, ARM_CLIENT_ID:appId, ARM_CLIENT_SECRET:password}")
+$DBX_CREDENTIALS=( az ad sp create-for-rbac -n DatabricksSP_$RandomVariable2 --role Contributor --scopes /subscriptions/$SubscriptionId --query "{ARM_TENANT_ID:tenant, ARM_CLIENT_ID:appId, ARM_CLIENT_SECRET:password}")
 
 echo "Service Principal Credentials"
 $DBX_CREDENTIALS=( $DBX_CREDENTIALS | convertfrom-json )
