@@ -153,12 +153,12 @@ echo "Random String One is: $RandomVariable1" `
  
 ```
 
-## Provide SubscriptionID (Amend Code Below !!! )
+## Provide SubscriptionID 
 ```ps
  
 echo "Enter Your Azure Subsription ID"
 
-$SubscriptionId = " "
+$SubscriptionId=( az account show --query id -o tsv )
 ```
 
 ## Create Main Service Principal 
