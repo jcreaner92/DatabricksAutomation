@@ -10,16 +10,16 @@
 # git push origin v1.0.1
 # git tag -d v1.0.1
 
-#on:
-#  push:
-#    branches:
-#      - release-**
-#    tags:
-#      - 'v**'
-
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - release-**
+    tags:
+      - 'v**'
+
+#on:
+#  release:
+#    types: [published]
 
 permissions:
       id-token:               write
