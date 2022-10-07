@@ -156,4 +156,4 @@ jobs:
           run:                  bash ./.github/workflows/Utilities/Utils-Git-Pull-DBX-Repo.sh
           env:
             BRANCH:          'release-1.0.x' # Should Be Release Branch. 
-            UPDATE_FOLDER:  'PreProductionFolder'
+            UPDATE_FOLDER:  'ProductionFolder'
