@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Anything With param_ Was Set As An Environment Variable Using "antifree/json-to-variables@v1.0.1" In Main Yaml Pipeline
+# Anything With param_ Was Set As An Environment Variable Using "antifree/json-to-variables@v1.0.1" In Main Yaml Pipeline.
 echo "SubscriptionID: $param_SubscriptionId"
 echo "Resource Group Name: $param_parameters_resourceGroupName_value"
 
