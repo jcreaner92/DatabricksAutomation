@@ -12,13 +12,10 @@ param resourceGroupName string
 param azKeyVaultName string
 
 
-var varstorageAccountName = '${storageAccountName}${substring(uniqueString(resourceGroup().id), 0, 4)}'
-
-
 // ################################################################################################################################################################//
 //                                                                       Define Variables                                                                    
 // ################################################################################################################################################################//
-// var name = 'demo${environment}adlschd'
+var varstorageAccountName = '${storageAccountName}${substring(uniqueString(resourceGroup().id), 0, 4)}'
 
 
 // ################################################################################################################################################################//

@@ -32,6 +32,19 @@ jobs:
           with:
             ref:                   ${{ github.base_ref }} ## THIS MUST BE Release Branch
 
+        - uses: dorny/paths-filter@v2
+          id: filter
+          with:
+            filters: |
+              workflows:
+                - 'src/**'   
+
+        - name:                 Azure Login - ${{ matrix.environments }}
+          uses:                 azure/login@v1
+          with:
+            creds:              ${{secrets.AZURE_CREDENTIALS}}
+      
+
         - name:                 Azure Login - ${{ matrix.environments }}
           uses:                 azure/login@v1
           with:
@@ -44,20 +57,36 @@ jobs:
             filename:           '.github/workflows/Pipeline_Param/${{ matrix.environments }}.json'
             prefix:             param
 
+        - name:                 Store BICEP Param JSON File Variables As Environ VariablesStore JSON Param File Variables As Environ Variables
+          uses:                 antifree/json-to-variables@v1.0.1
+          with:
+            filename:           'Infrastructure/DBX_CICD_Deployment/Bicep_Params/${{ matrix.environments }}/Bicep.parameters.json'
+            prefix:             param
+
+# 5.  __Order Important__ Create Custom Role
+        - name:                 Create Databricks Custom Role
+          continue-on-error:    true
+          run:                  bash ./.github/workflows/Utilities/Utils-Databricks-Create-Custom-Role.sh
+          env:
+            environment:        ${{ matrix.environments }}
+
+        # Only run if file path !infra AND merging into main, then don't run this!
         - name:                 Deploy DBX CICD Azure Resources
+          if:                   steps.filter.outputs.workflows != 'true'
           run:                  bash ./.github/workflows/Utilities/Utils-Azure-Resources.sh
           env:
             environment:        ${{ matrix.environments }}
 
 
-        - name:                 Assign RBAC Permissions 
+        - name:                 Assign RBAC Permissions
+          if:                   steps.filter.outputs.workflows != 'true'
           run:                  sh ./.github/workflows/Utilities/Utils-Assign-RBAC.sh
           env:
             environment:        ${{ matrix.environments }}
 
 
-        - name:                 Authenticate to DBX Service Principal
-          run:                  bash ./.github/workflows/Utilities/Utils-DBX-SP-Authenticate.sh
+        - name:                 Authenticate to DBX Service Principal + Set AAD Tokens As Env Variables
+          run:                  bash ./.github/workflows/Utilities/Utils-DBX-AAD-Token-Autentication.sh
           env:
             ARM_CLIENT_ID:      ${{ secrets.ARM_CLIENT_ID }}
             ARM_CLIENT_SECRET:  ${{ secrets.ARM_CLIENT_SECRET }}
@@ -69,16 +98,23 @@ jobs:
           with:
             python-version:     '3.8'
 
+# 7.  __Order Important__ Set Environment Variables For Resources Created On The Fly.
+        - name:                 Set Environment Variables For Resources Created On The Fly.
+          run:                  bash ./.github/workflows/Utilities/Utils-Env-Variables-For-Azure-Resources-Created.sh
+
 
         - name:                 Create And Store PAT Token In Key Vault
           run:                  bash ./.github/workflows/Utilities/Utils-Create-PAToken.sh
 
-
-        - name:                 Create DBX Secret Scopes
+        - name:                 Save Databricks SP Credentials Within Secret Scopes  
           run:                  bash ./.github/workflows/Utilities/Utils-Create-Scope.sh
-        
+
+# 11.  Store Important Environment Variables In Key Vault. They Can Be Accessed Within DBUtils In Databricks via The Databricks Credentials inside the Secret Scope (above)
+        #- name:                 Store Important Environment Variables In Key Vault
+        #  run:                  bash ./.github/workflows/Utilities/Utils-Create-Scope.sh
 
         - name:                 Create DBX Clusters
+          if:                   steps.filter.outputs.workflows != 'true'
           run:                  bash ./.github/workflows/Utilities/Utils-Create-Cluster.sh
           env:
             environment:        ${{ matrix.environments }}
@@ -95,13 +131,17 @@ jobs:
         - name:                   Install + Configure Databricks CLI
           run:                    bash ./.github/workflows/Utilities/Utils-DBX-CLI-Configure.sh
 
+        - run: |
+            echo "${{ github.head_ref }}"
+            echo "${{ github.base_ref }}"
 
         - name:                   Create Wheel Files & Upload To DBFS
+          if:                     steps.filter.outputs.workflows != 'true'
           run:                    bash ./.github/workflows/Utilities/Utils-Create-Wheels-DBFS-Cluster-Upload.sh
           env:
             environment:          ${{ matrix.environments }}
 
-        # INCLUDE GIT PULL HERE SO THAT THE Production ENVIRONMENT HAS THE MOST UP TO DATE VERSION OF THE MAIN BRANCH -- 
+        # INCLUDE GIT PULL HERE SO THAT THE UAT ENVIRONMENT HAS THE MOST UP TO DATE VERSION OF THE MAIN BRANCH -- 
         - run: |
             echo "${{ github.head_ref }}"
             echo "${{ github.base_ref }}"

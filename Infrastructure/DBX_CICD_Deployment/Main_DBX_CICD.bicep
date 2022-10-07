@@ -12,18 +12,13 @@ param loganalyticswsname string
 param appInsightswsname string 
 param storageAccountName string 
 
-
-//var roleDefinitionAzureStorageBlobContributor = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')
-
-
-
 // ################################################################################################################################################################//
 //                                                                       Create Resource Group                                                                    
 // ################################################################################################################################################################//
 resource azResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   dependsOn: []
   name: resourceGroupName
-  // Location of the Resource Group Does Not Have To Match That of The Resouces Within. Metadate for all resources within groups can reside in 'uksouth' below
+  // Location of the Resource Group Does Not Have To Match That of The Resouces Within. Metadata for all resources within groups can reside in 'uksouth' below
   location: location
 }
 
@@ -77,8 +72,6 @@ module azDataLake '../Az_Resources/Az_DataLake/Az_DataLake.bicep' =  {
     location: location
     containerNames: containerNames
     ShouldCreateContainers: ShouldCreateContainers
-    
-    // Arm Is Incredible Dumb and only takes outputs from one resource (The last Resource To Deploy). Therefore the parameters below are simply for outputting so we can grab them in a task in YAML 
     azDatabricksWorkspaceID: azDatabricks.outputs.azDatabricksWorkspaceID 
     workspaceName: workspaceName
     resourceGroupName: resourceGroupName

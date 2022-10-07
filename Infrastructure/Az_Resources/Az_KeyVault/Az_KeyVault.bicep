@@ -1,14 +1,5 @@
 
-// I don't think Application ID is required. Test by taking it out. If not needed then all we need is tenant ID and Object. Tenant is the same
-// We could then get the ID for the Databricks Workspace, and also configure it to retrieve access from key vault. It would only need 
-// Get access. Therefore we can use the PAT Token in our notebooks. 
-
-// I think it's better to abandon the accessPolicies, and use RBAC assignments instead, on account of us not being 
-// able to get the Object ID of Dbx ws in BICEP. Gonna have to do it in YAML anyway -->
-// I was having issues assigning serviceConenct1 RBAC in YAML --> could keep it here ....
-
 param environment string
-
 var keyVaultName = 'keyvault-${environment}-${substring(uniqueString(resourceGroup().id), 0, 4)}'
 
 

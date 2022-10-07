@@ -17,9 +17,6 @@ param pricingTier string = 'premium'
 // ################################################################################################################################################################//
 //                                                                       Define Variables                                                                    
 // ################################################################################################################################################################//
-//var roleDefinitionAzureStorageBlobContributor = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')
-//var roleDefinitionOwner = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')
-//var roleDefinitionAzureEventHubsDataOwner = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')
 var roleDefinitionUser = guid('${resourceGroup().id}/8e3af657-a8ff-443c-a75c-2fe8c4bcb635/')
 
 
