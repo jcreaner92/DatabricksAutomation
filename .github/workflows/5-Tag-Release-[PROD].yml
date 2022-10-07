@@ -12,6 +12,7 @@
 
 # Create A RELEASE in Github GUI and Create Tag on Release Branch ( Create Security Rule That Only Allow Release Branch to be Tagged). 
 # The Tag Will Trigger This Pipeline. 
+# TO DO :: CHANGE TO ON RELEASE - See if github.ref == branch name. 
 
 on:
   push:
