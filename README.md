@@ -308,6 +308,27 @@ Foreach($file in $files)
 
 }
 ```
+
+
+## Update Github Repo - Git Push
+
+- There is a tendency for EOF to default to Windows CRLF (\r\n), which will not be recognised when running on Linux Machine when we deploy our code.
+- The command below will convert \r\n to \n , which is the equivalent to changing all file in VS Code from CRLF to LF
+- Run the command below from Root
+
+```ps
+git add . 
+git commit . -m 'Demo Deployment Commit'
+
+git config core.autocrlf false
+git rm --cached -r .
+git reset --hard
+git push
+
+```
+
+
+
 ---
 ---
  
