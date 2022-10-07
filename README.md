@@ -138,12 +138,12 @@ The Branching Strategy I have chosen is configured automatically as part of the 
 ---
 ---
 
-## Login To Azure (VS Code Powershell )
+## Login To Azure (VS Code Powershell Terminal - No Code Amendments )
 ```ps
 az login
 ```
 
-## Create Random String Values (VS Code Powershell )
+## Create Random String Values (VS Code Powershell Terminal - No Code Amendments )
 ```ps
 $RandomVariable1=for($i=1; $i -le 1; $i++){([char[]]([char]'a'..[char]'z' + [char]'A'..[char]'Z') + 0..9 | sort {get-random})[0..3] -join ''} 
 $RandomVariable2=for($i=1; $i -le 1; $i++){([char[]]([char]'a'..[char]'z' + [char]'A'..[char]'Z') + 0..9 | sort {get-random})[0..3] -join ''} 
@@ -159,8 +159,6 @@ echo "Random String One is: $RandomVariable1" `
 echo "Enter Your Azure Subsription ID"
 
 $SubscriptionId = " "
-
-
 ```
 
 ## Create Main Service Principal (VS Code Powershell Terminal - No Code Amendments )
@@ -196,15 +194,16 @@ echo "Create The Service Principal"
  
 echo "WARNING: DO NOT DELETE OUTPUT"
  
-az ad sp create-for-rbac -n DatabricksSP$RandomVariable2 --role Contributor --scopes /subscriptions/$SubscriptionId --query "{ARM_TENANT_ID:tenant, ARM_CLIENT_ID:appId, ARM_CLIENT_SECRET:password}"
+$DBX_CREDENTIALS=( az ad sp create-for-rbac -n DatabricksSP$RandomVariable2 --role Contributor --scopes /subscriptions/$SubscriptionId --query "{ARM_TENANT_ID:tenant, ARM_CLIENT_ID:appId, ARM_CLIENT_SECRET:password}")
+
+echo "Service Principal Credentials"
+$DBX_CREDENTIALS=( $DBX_CREDENTIALS | convertfrom-json )
+echo $DBX_CREDENTIALS
+ 
+$DBX_SP_Client_ID=( $DBX_CREDENTIALS.ARM_CLIENT_ID )
  
 ```
 
-```ps
-echo "Save The ARM_CLIENT_ID From Previous Steps Output"
- 
-$DBX_SP_Client_ID = "<>"
-```
 ## Secrets
 Create Github Secrets entitled **ARM_CLIENT_ID**, **ARM_CLIENT_SECRET** and **ARM_TENANT_ID**  
 Do not include double quotes for Secret Names and Values.
