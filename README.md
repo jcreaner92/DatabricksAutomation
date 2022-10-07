@@ -151,10 +151,13 @@ $SubscriptionId = " "
 ```
 
 ```ps
-echo "Create The Service Principal - Provide Unique Name: Suggestions - CICD_MainSP_UniqSuffix"
+echo "Create The Service Principal"
 echo "WARNING: DO NOT DELETE OUTPUT"
 
-az ad sp create-for-rbac -n  "InsertName" --role Owner --scopes /subscriptions/$SubscriptionId --sdk-auth
+
+$RandomVariable=for($i=1; $i -le 1; $i++){([char[]]([char]'a'..[char]'z' + [char]'A'..[char]'Z') + 0..9 | sort {get-random})[0..3] -join ''}
+
+az ad sp create-for-rbac -n  MainSP$RandomVariable --role Owner --scopes /subscriptions/$SubscriptionId --sdk-auth
 ```
 
 Ensure that the Service Principal names are unique within your Tenant. If not unique, you may see the error "Insufficient privileges to complete the operation"
@@ -176,7 +179,7 @@ Steps:
 Open the Terminal Window in VSCode. Enter:
 
 ```ps
-echo "Create The Service Principal - Provide Unique Name: Suggestions - CICD_DBXSP_UniqSuffix"
+echo "Create The Service Principal"
  
 echo "WARNING: DO NOT DELETE OUTPUT"
  
