@@ -153,7 +153,7 @@ echo "Random String One is: $RandomVariable1" `
  
 ```
 
-## Provide SubscriptionID (Amendment Code)
+## Provide SubscriptionID (Amend Code Below !!! )
 ```ps
  
 echo "Enter Your Azure Subsription ID"
