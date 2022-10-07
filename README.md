@@ -217,7 +217,8 @@ Do not include double quotes for Secret Names and Values.
 
 Secrets in Github should look exactly like below. The secrets are case sensitive, therefore be very cautious when creating. 
 
-<img width="388" alt="image" src="https://user-images.githubusercontent.com/108273509/192744701-1a83ad50-4d6c-4e70-8124-5c3991fc408e.png">
+<img width="585" alt="image" src="https://user-images.githubusercontent.com/108273509/194613800-e8a99b1f-1d4f-4710-803f-b2ac0721ff33.png">
+
 
 ---
 ---
@@ -344,11 +345,35 @@ git push
 ---
 
 ## Run Machine Learning Scripts
-
+- Find the script at src/tutorial/scripts/framework_testing/remote_analysis
 <img width="752" alt="image" src="https://user-images.githubusercontent.com/108273509/186661417-403d58db-147e-4dd5-966a-868876fb2ee0.png">
 
 ---
 ---
+
+## Continuous Integration and Deployment
+- Demo to follow 
+- Best Practice: Connect the Repo in your **own user folder** in Databricks REPO.
+- Admin will see two User Folders. The first is their own e.g. ciaranh@microsoft.com... and the other is the **Service Principal User Folder**, named after it's ClientID.
+- The cluster will run off the Service Principal Scripts (isolated and can only be updated when a Feature Branch is merged into Main)
+
+The process for CI/CD in Databricks is thus:
+1. Work in your User Folder 
+<img width="349" alt="image" src="https://user-images.githubusercontent.com/108273509/194616776-1445a003-f23d-4670-ae8a-d0af92b2d12d.png">
+
+2. Create a Feature Branch from Main. 
+3. Develop code in **your Feature Branch** 
+4. Push code regularly from Feature Branch
+5. When feature is complete, create a Pull Request from **Feature Branch to Main**
+6. If the Pull Request is approved, the files within the **Service Principal folder** will update. The Clusters in the Dev environment will now run off the updated code. 
+<img width="349" alt="image" src="https://user-images.githubusercontent.com/108273509/194617198-25eea06e-ee32-43b8-a502-6112c90bc918.png">
+
+7. If the Development Databricks Instance is stable and ready to be promoted to the Test Environment, create a Pull Request from **Main to Release**
+8. Changes will cascade into the UAT Databricks Instance
+9. If tests are successful, the Pull Request is **approved**, which will trigger a release pipeline to propogate changes to the PreProduction Environment
+10. The above will happen iteratively, until the PreProduction environment is stable enough for a new release version, at which we Tag the Release Branch with a version number, e.g "v-1.0.1". This will promote changes to the Production Environment. **Release Pipeline for Production Environment not yet complete** 
+   
+   
 # Section 2: Interact With Databricks From Local VS Code Using Databricks Connect + Docker Image
 
 In the previous section, we interacted with Databricks API from the DevOps Agent.
