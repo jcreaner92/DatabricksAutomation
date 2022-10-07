@@ -145,29 +145,34 @@ az login
 
 ## Create Random String Values (VS Code Powershell )
 ```ps
-$RandomVariable1=for($i=1; $i -le 1; $i++){([char[]]([char]'a'..[char]'z' + [char]'A'..[char]'Z') + 0..9 | sort {get-random})[0..3] -join ''}
-$RandomVariable2=for($i=1; $i -le 1; $i++){([char[]]([char]'a'..[char]'z' + [char]'A'..[char]'Z') + 0..9 | sort {get-random})[0..3] -join ''}
-
-echo "Random String One is: $RandomVariable1"
-echo "Random String Two is: $RandomVariable2"
+$RandomVariable1=for($i=1; $i -le 1; $i++){([char[]]([char]'a'..[char]'z' + [char]'A'..[char]'Z') + 0..9 | sort {get-random})[0..3] -join ''} 
+$RandomVariable2=for($i=1; $i -le 1; $i++){([char[]]([char]'a'..[char]'z' + [char]'A'..[char]'Z') + 0..9 | sort {get-random})[0..3] -join ''} 
+ 
+echo "Random String One is: $RandomVariable1" `
+"Random String Two is: $RandomVariable2"
+ 
 ```
 
-## Provide SubscriptionID (VS Code Powershell )
+## Provide SubscriptionID (VS Code Powershell Terminal - Code Amendments Required )
 ```ps
+ 
 echo "Enter Your Azure Subsription ID"
+
 $SubscriptionId = " "
 
 
 ```
 
-## Create Main Service Principal (VS Code Powershell )
-
+## Create Main Service Principal (VS Code Powershell Terminal - No Code Amendments )
 **Why**: You will need to assign RBAC permissions to Azure Resources created on the fly. See JSON document "RBAC_Assignment" section.
 
 ```ps
 echo "Create The Service Principal"
+
 echo "WARNING: DO NOT DELETE OUTPUT "
+
 az ad sp create-for-rbac -n MainSP$RandomVariable1 --role Owner --scopes /subscriptions/$SubscriptionId --sdk-auth
+ 
 ```
 
 Ensure that the Service Principal names are unique within your Tenant. If not unique, you may see the error "Insufficient privileges to complete the operation"
@@ -181,12 +186,10 @@ Create Github Secret titled **AZURE_CREDENTIALS** using the output generated fro
 ---
 ---
 
-## Create Databricks Service Principal
+## Create Databricks Service Principal (VS Code Powershell Terminal - No Code Amendments )
 
 **Why**: For those who only need permissions to create resources and interact with the Databricks API (zero trust).
-Steps:
 
-Open the Terminal Window in VSCode. Enter:
 
 ```ps
 echo "Create The Service Principal"
@@ -194,6 +197,7 @@ echo "Create The Service Principal"
 echo "WARNING: DO NOT DELETE OUTPUT"
  
 az ad sp create-for-rbac -n DatabricksSP$RandomVariable2 --role Contributor --scopes /subscriptions/$SubscriptionId --query "{ARM_TENANT_ID:tenant, ARM_CLIENT_ID:appId, ARM_CLIENT_SECRET:password}"
+ 
 ```
 
 ```ps
