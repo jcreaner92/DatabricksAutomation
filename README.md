@@ -206,8 +206,9 @@ $DBX_SP_Client_ID=( $DBX_CREDENTIALS.ARM_CLIENT_ID )
 ```
 
 ## Secrets
-Create Github Secrets entitled **ARM_CLIENT_ID**, **ARM_CLIENT_SECRET** and **ARM_TENANT_ID**  
-Do not include double quotes for Secret Names and Values.
+Create Github Secrets entitled **ARM_CLIENT_ID**, **ARM_CLIENT_SECRET** and **ARM_TENANT_ID** using the output in VS Code Powershell Terminal. See below.
+
+<img width="656" alt="image" src="https://user-images.githubusercontent.com/108273509/194619649-2ef7e325-a6bb-4760-9a82-1e3b4775adbd.png">
 
 ---
 ---
@@ -227,7 +228,7 @@ Secrets in Github should look exactly like below. The secrets are case sensitive
 
 **Why**: The Object IDs will be used when assigning RBAC permissions at a later stage. 
 
-1. In VS Code Terminal retrieve ObjectID of Databricks Service Principal by entering:  
+1. Retrieve ObjectID of Databricks Service Principal:  
 ```ps
 $DBX_SP_ObjID=( az ad sp show --id $DBX_SP_Client_ID --query "{roleBeneficiaryObjID:id}" -o tsv )
 
@@ -239,7 +240,7 @@ if ($DBX_SP_ObjID -eq "None" ) { $DBX_SP_ObjID=( az ad sp show --id $DBX_SP_Clie
 
 ---
 
-2. In VSCode Terminal Retrieve your own ObectID:  
+2. Retrieve your own ObectID:  
 ```ps
  
 $AZ_ACCOUNT_ALIAS=( az account show --query user.name -o tsv )
