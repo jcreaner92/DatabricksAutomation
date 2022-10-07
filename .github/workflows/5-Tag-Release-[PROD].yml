@@ -10,6 +10,9 @@
 # git push origin v1.0.1
 # git tag -d v1.0.1
 
+# Create A RELEASE in Github GUI and Create Tag on Release Branch ( Create Security Rule That Only Allow Release Branch to be Tagged). 
+# The Tag Will Trigger This Pipeline. 
+
 on:
   push:
     branches:
