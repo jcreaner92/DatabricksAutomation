@@ -39,7 +39,7 @@ echo 'List Clusters'
 echo $listClusters
 
 
-# UPDATE THE CLUSTER NAME SEARCH ===> CREATE A CLUSTER LIST 
+# UPDATE THE CLUSTER NAME SEARCH ===> CREATE A CLUSTER LIST.
 echo 'clusterID'
 clusterId=$( jq -r  '.clusters[] | select( .cluster_name | contains("dbz-sp-cluster2")) | .cluster_id ' <<< "$listClusters")
 echo $clusterId
