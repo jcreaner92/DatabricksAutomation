@@ -307,9 +307,9 @@ Foreach($file in $files)
 
 ## Update Github Repo - Git Push
 
-- There is a tendency for EOF to default to Windows CRLF (\r\n), which will not be recognised when running on Linux Machine when we deploy our code.
-- The command below will convert \r\n to \n , which is the equivalent to changing all file in VS Code from CRLF to LF
-- Run the command below from Root
+- There is a tendency for EOF to default to Windows CRLF (\r\n) in VS Code. Our deployment will use an Ubuntu Image for the Github Action Runner, which will not recognise carriage return \r\n.
+- The command below will convert \r\n to \n , which is the equivalent to changing all files in VS Code from CRLF to LF. It will then promote our local changes to the remote repository. 
+- Run the command below from root folder
 
 ```ps
 git add . 
