@@ -1,7 +1,7 @@
 # When The Release Branch Is Tagged With A Version Number, The Release Branch Code Is
 # Deployed To The Production Environment
 # Pipeline Is Triggered When ANY Branch Is Tagged EXCLUDING Main, Thereby Ensuring Only Release Is Used, 
-# Given That We Never Tag Feature Branches . VEEEEEEEEERY DIFFERENT 
+# Given That We Never Tag Feature Branches .
 
 on:
   push:
