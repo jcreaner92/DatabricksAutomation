@@ -60,7 +60,6 @@ The net effect is a disproportionate amount of the Data Scientist/Engineers time
 - Github Account
 - Microsoft Azure Subscription
 - VS Code
-- Install Github CLI
 - Azure CLI Installed (This Accelerator is tested on version 2.39)
 - Docker Desktop Installed (not required for Section 1)
 
@@ -139,16 +138,6 @@ The Branching Strategy I have chosen is configured automatically as part of the 
 ---
 ---
  
-## Install Github CLI (Windows)
-- https://github.com/cli/cli#windows
-- Open Powershell as **ADMINISTRATOR**
-
-```ps
-choco install gh
-choco upgrade gh
-```
-## Restart VS Code and Terminals
-- If VS Code is open, the newly installed GH CLI will not propogate through until we close all open powershell terminals and restart VS Code.
 
 ## Login To Azure ( All Code Throughout To Go Into VS Code Powershell Terminal )
 ```ps
