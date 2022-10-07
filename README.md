@@ -152,7 +152,7 @@ $SubscriptionId = " "
 
 ```ps
 echo "Create The Service Principal"
-echo "WARNING: DO NOT DELETE OUTPUT"
+echo "WARNING: DO NOT DELETE OUTPUT "
 
 
 $RandomVariable=for($i=1; $i -le 1; $i++){([char[]]([char]'a'..[char]'z' + [char]'A'..[char]'Z') + 0..9 | sort {get-random})[0..3] -join ''}
