@@ -138,12 +138,12 @@ The Branching Strategy I have chosen is configured automatically as part of the 
 ---
 ---
 
-## Login To Azure (VS Code Powershell Terminal - No Code Amendments )
+## Login To Azure ( All Code Throughout To Go Into VS Code Powershell Terminal )
 ```ps
 az login
 ```
 
-## Create Random String Values (VS Code Powershell Terminal - No Code Amendments )
+## Create Random String Values 
 ```ps
 $RandomVariable1=for($i=1; $i -le 1; $i++){([char[]]([char]'a'..[char]'z' + [char]'A'..[char]'Z') + 0..9 | sort {get-random})[0..3] -join ''} 
 $RandomVariable2=for($i=1; $i -le 1; $i++){([char[]]([char]'a'..[char]'z' + [char]'A'..[char]'Z') + 0..9 | sort {get-random})[0..3] -join ''} 
@@ -153,7 +153,7 @@ echo "Random String One is: $RandomVariable1" `
  
 ```
 
-## Provide SubscriptionID (VS Code Powershell Terminal - Code Amendments Required )
+## Provide SubscriptionID (Amendment Code)
 ```ps
  
 echo "Enter Your Azure Subsription ID"
@@ -161,7 +161,7 @@ echo "Enter Your Azure Subsription ID"
 $SubscriptionId = " "
 ```
 
-## Create Main Service Principal (VS Code Powershell Terminal - No Code Amendments )
+## Create Main Service Principal 
 **Why**: You will need to assign RBAC permissions to Azure Resources created on the fly. See JSON document "RBAC_Assignment" section.
 
 ```ps
@@ -184,7 +184,7 @@ Create Github Secret titled **AZURE_CREDENTIALS** using the output generated fro
 ---
 ---
 
-## Create Databricks Service Principal (VS Code Powershell Terminal - No Code Amendments )
+## Create Databricks Service Principal 
 
 **Why**: For those who only need permissions to create resources and interact with the Databricks API (zero trust).
 
@@ -229,29 +229,32 @@ Secrets in Github should look exactly like below. The secrets are case sensitive
 ---
 ---
  
-## Retrieve Object Ids
+## Retrieve Object Ids 
 
 **Why**: The Object IDs will be used when assigning RBAC permissions at a later stage. 
 
 1. In VS Code Terminal retrieve ObjectID of Databricks Service Principal by entering:  
 ```ps
 $DBX_SP_ObjID=( az ad sp show --id $DBX_SP_Client_ID --query "{roleBeneficiaryObjID:id}" -o tsv )
-```
-ERROR: If you are on the old Azure CLI, the command above will return null. Instead use the command below:
 
-```ps
-$DBX_SP_ObjID=( az ad sp show --id $DBX_SP_Client_ID --query "{roleBeneficiaryObjID:objectId}" -o tsv )
+echo "Back Stop Command For Older Azure CLI Command"
+ 
+if ($DBX_SP_ObjID -eq "None" ) { $DBX_SP_ObjID=( az ad sp show --id $DBX_SP_Client_ID --query "{roleBeneficiaryObjID:objectId}" -o tsv ) }
+ 
 ```
+
 ---
 
 2. In VSCode Terminal Retrieve your own ObectID:  
 ```ps
-$User_ObjID=( az ad user show --id ciaranh@microsoft.com --query "{roleBeneficiaryObjID:id}" -o tsv )
-```
-ERROR: If you are on the old Azure CLI, the command above will return null. Instead use the command below:
-
-```ps
-$User_ObjID=( az ad user show --id ciaranh@microsoft.com --query "{roleBeneficiaryObjID:objectId}" -o tsv )
+ 
+$AZ_ACCOUNT_ALIAS=( az account show --query user.name -o tsv )
+$User_ObjID=( az ad user show --id $AZ_ACCOUNT_ALIAS --query "{roleBeneficiaryObjID:id}" -o tsv )
+ 
+echo "Back Stop Command For Older Azure CLI Command"
+ 
+if ($User_ObjID -eq "None" ) { $User_ObjID=( az ad sp show --id $AZ_ACCOUNT_ALIAS --query "{roleBeneficiaryObjID:objectId}" -o tsv ) }
+ 
 ```
 ---
 ---
