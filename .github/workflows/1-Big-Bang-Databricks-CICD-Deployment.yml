@@ -27,6 +27,11 @@ jobs:
         # https://goodworkaround.com/2021/12/21/another-deep-dive-into-azure-ad-workload-identity-federation-using-github-actions/
 
 
+        - name:                 test.
+          run:                  bash ./.github/workflows/Utilities/Utils-Test.sh
+          env:
+            environment:        ${{secrets.AZURE_CREDENTIALS}} 
+
 # 2.  __Order Important__Login To Main Service Principal
         - name:                 Azure Login - ${{ matrix.environments }}
           uses:                 azure/login@v1
